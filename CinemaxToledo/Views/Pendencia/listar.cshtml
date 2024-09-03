@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PendenciaModel>
+@{
+    ViewData["Title"] = "listar";
+}
+
+<h1>Pendências</h1>
+<br />
+<span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
+
+<script>
+    function confirmExclusao(id) {
+        if (confirm("Tem certeza que deseja excluir esta pendência?")) {
+            location.href = "/Pendencia/excluir/" + id;
+
+        }
+    }
+</script>
+
+<a href="~/pendencia/cadastro" class="btn btn-info" style="background-color: #021532;">
+    Novo
+    </a>
+    <br />
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Alterar</th>
+            <th scope="col">Excluir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.id</th>
+                <td>@item.descricao</td>
+                <td>
+                    <a href="~/pendencia/prealterar/@item.id" class="btn btn-primary" style="background-color: #021532;">
+                        Alterar
+                    </a>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-primary" onclick="confirmExclusao(@item.id)" style="background-color: #021532;">
+                    Excluir
+                    </a>
+                </td>          
+            </tr>
+        }
+    </tbody>
+</table>
+

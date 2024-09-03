@@ -1,0 +1,137 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CompusoftAtendimento</title>
+   <!-- Principal CSS do Bootstrap -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Estilos customizados para esse template -->
+    <link href="~/lib/bootstrap/dist/css/dashboard.css" rel="stylesheet">
+  <style type="text/css">/* Chart.js */
+   webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar bg-dark" aria-label="breadcrumb" style="height: 50px;">
+            <a class="font-weight-bold bg-dark" style="height: 40px;">
+                <h4 href="~/HomeSite/Index">
+                    <span style="color: white;">COMPU</span><span style="color: gray;">SOFT</span> <span style="color: white;">ATENDIMENTO</span>
+                </h4>
+            </a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item text-nowrap">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <a class="text-white">Bem vindo(a) @Context.Session.GetString("nomeLogin")!</a>
+                        </div>
+                        <div class="col-auto">
+                            <a class="nav-link" asp-controller="login" asp-action="sair">
+                                <span class="d-inline-block ml-1">
+                                    <img src="~/icons/sair.png" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-dark">
+                <!-- Alterada a classe bg-light para bg-dark -->
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <!-- Removido o texto 'Listar registros' -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="index" asp-controller="home" style="font-size: 18px;">
+                                Atendimento
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="plataforma" style="font-size: 18px;">
+                                Plataforma
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="login" style="font-size: 18px;">
+                                Usuários
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="empresa" style="font-size: 18px;">
+                                Empresa
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="cargo" style="font-size: 18px;">
+                                Cargo
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="CategoriaProblema" style="font-size: 18px;">
+                                Categoria do Problema
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="pendencia" style="font-size: 18px;">
+                                Pendência
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="status" style="font-size: 18px;">
+                                Status
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-action="listar" asp-controller="FormaAtendimento" style="font-size: 18px;">
+                                Forma de Atendimento
+                            </a>
+                            <hr class="my-2 border-top border-light"> <!-- Linha na cor light gray -->
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+
+
+
+  
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- Principal JavaScript do Bootstrap
+    ================================================== -->
+    <!-- Foi colocado no final para a página carregar mais rápido -->
+    <script src="~/lib/jquery/dist/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Ícones -->
+    <script src="~/lib/jquery/dist/feather.min.js"></script>
+    <script src="~/js/jquery.mask.min.js"></script>
+    <script>
+        feather.replace()
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>
