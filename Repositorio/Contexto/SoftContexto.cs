@@ -18,9 +18,13 @@ namespace Repositorio.Contexto
             this.Database.EnsureCreated();
         }
 
+        public DbSet<Atendimento> atendimentos { get; set; }
+
+        public DbSet<Pendencia> pendencias { get; set; }
+
         public DbSet<Plataforma> plataformas { get; set; }
 
-        public DbSet<FormaAtendimento> formaatendimento { get; set; }
+        public DbSet<FormaAtendimento> formaatendimentos { get; set; }
 
         public DbSet<Login> login { get; set; }
 
@@ -28,7 +32,7 @@ namespace Repositorio.Contexto
 
         public DbSet<Cargo> cargo { get; set; }
 
-        public DbSet<Empresa> empresa { get; set; }
+        public DbSet<Empresa> empresas { get; set; }
 
         public DbSet<Status> status { get; set; }
 
@@ -46,7 +50,7 @@ namespace Repositorio.Contexto
 
 
 
-            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento3;integrated security=true;Trust Server Certificate=true";
+            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento5;integrated security=true;Trust Server Certificate=true";
             //var stringConexao = @"Server=sql8005.site4now.net;DataBase=db_a98978_felipesanches;user id=db_a98978_felipesanches_admin;password=felipe98767";
 
             if (!optionsBuilder.IsConfigured)
@@ -58,6 +62,66 @@ namespace Repositorio.Contexto
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Atendimento>(entidade =>
+            {
+                entidade.HasKey(e => e.id);// definindo: chave primaria
+                entidade.Property(e => e.Contato).HasMaxLength(20);//qtd max caracteres
+                entidade.Property(e => e.DataHora).HasColumnType("datetime");
+                entidade.Property(e => e.Descricao).HasMaxLength(30);
+                entidade.Property(e => e.Anexo).HasMaxLength(255);
+                entidade.Property(e => e.DescricaoSolucao).HasMaxLength(30);
+                entidade.Property(e => e.Telefone).HasMaxLength(15);
+
+                //relacionamento categoria
+                entidade.HasOne(e => e.categoriaproblema) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idCategoriaProblema) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_CategoriaProblema") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+
+                //relacionamento empresa
+                entidade.HasOne(e => e.empresa) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idEmpresa) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_Empresa") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+
+                //relacionamento plataforma
+                entidade.HasOne(e => e.plataforma) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idPlataforma) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_Plataforma") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+
+                //relacionamento status
+                entidade.HasOne(e => e.status) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idStatus) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_Status") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+
+                //relacionamento usuario
+                entidade.HasOne(e => e.login) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idUsuario) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_Login") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+
+                //relacionamento pendencia
+                entidade.HasOne(e => e.pendencia) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idPendencia) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_Pendencia") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+
+                //relacionamento forma atendimento
+                entidade.HasOne(e => e.formaatendimento) //o lado da rel. que tem Um
+               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
+               .HasForeignKey(e => e.idFormaAtendimento) //prop chave estrangeira
+               .HasConstraintName("FK_Atendimento_FormaAtendimento") //nome do relacionamento
+               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+            });
+
             modelBuilder.Entity<Plataforma>(entidade =>
             {
                 entidade.HasKey(e => e.id);// definindo: chave primaria
@@ -84,6 +148,12 @@ namespace Repositorio.Contexto
 
             });
 
+            modelBuilder.Entity<Pendencia>(entidade => {
+                entidade.HasKey(e => e.id);//chave primaria
+                //qtde max caracteres
+                entidade.Property(e => e.descricao).HasMaxLength(150);
+
+            });
 
             modelBuilder.Entity<Cargo>(entidade => {
                 entidade.HasKey(e => e.id);

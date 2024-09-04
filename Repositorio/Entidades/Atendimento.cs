@@ -15,8 +15,6 @@ namespace Repositorio.Entidades
         public String Anexo { get; set; }
         public String DescricaoSolucao { get; set; }
         public String Telefone { get; set; }
-        public String FormaAtendimento { get; set; }
-        public String Pendencia { get; set; }
 
         //FK:
         public int idCategoriaProblema { get; set; }
@@ -25,6 +23,7 @@ namespace Repositorio.Entidades
         public int idStatus { get; set; }
         public int idUsuario { get; set; }
         public int idPendencia { get; set; }
+        public int idFormaAtendimento { get; set; }
 
 
         //public int idTempo { get; set; }  -- Relógio
@@ -36,6 +35,7 @@ namespace Repositorio.Entidades
         public virtual Status status { get; set; }
         public virtual Login login { get; set; }
         public virtual Pendencia pendencia { get; set; }
+        public virtual FormaAtendimento formaatendimento { get; set; }
 
     }
 }

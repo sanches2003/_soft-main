@@ -19,11 +19,25 @@ namespace CompusoftAtendimento.Controllers
             ViewBag.listaempresas = listaEmpresa.Select(c => new SelectListItem()
             {
                 Value = c.id.ToString(),
-                Text = c.razaosocial
+                Text = c.cnpj
             });
 
             List<PlataformaModel> listaPlataforma = (new PlataformaModel()).listar();
             ViewBag.listaplataformas = listaPlataforma.Select(c => new SelectListItem()
+            {
+                Value = c.id.ToString(),
+                Text = c.descricao
+            });
+
+            List<FormaAtendimentoModel> listaFormaAtendimento = (new FormaAtendimentoModel()).listar();
+            ViewBag.listaformaatendimentos = listaPlataforma.Select(c => new SelectListItem()
+            {
+                Value = c.id.ToString(),
+                Text = c.descricao
+            });
+
+            List<PendenciaModel> listaPendencia = (new PendenciaModel()).listar();
+            ViewBag.listapendencias = listaPlataforma.Select(c => new SelectListItem()
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
@@ -34,8 +48,6 @@ namespace CompusoftAtendimento.Controllers
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
-
-
             });
 
             List<LoginModel> listaUsuarios = (new LoginModel()).listar();

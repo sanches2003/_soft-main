@@ -36,34 +36,40 @@ namespace CompusoftAtendimento.Models
         [Display(Name = "Telefone")]
         public String Telefone { get; set; }
 
-
-        [Display(Name = "FormaAtendimento")]
-        public String FormaAtendimento { get; set; }
-
-
-        [Display(Name = "Pendencia")]
-        public String Pendencia { get; set; }
-
-
         //FKs
+        [Display(Name = "Categoria do Problema")]
         public int idCategoriaProblema { get; set; }
         public CategoriaProblemaModel? categoriaproblema { get; set; }
 
 
+        [Display(Name = "Empresa")]
         public int idEmpresa { get; set; }
         public EmpresaModel? empresa { get; set; }
 
 
+        [Display(Name = "Plataforma")]
         public int idPlataforma { get; set; }
         public PlataformaModel? plataforma { get; set; }
 
 
-        //public int idStatus { get; set; }
-        //public StatusModel? status { get; set; }
+        [Display(Name = "Forma de Atendimento")]
+        public int idFormaAtendimento { get; set; }
+        public FormaAtendimentoModel? formaatendimento { get; set; }
 
+
+        [Display(Name = "Status")]
+        public int idStatus { get; set; }
+        public StatusModel? status { get; set; }
+
+
+        [Display(Name = "Pendência")]
+        public int idPendencia { get; set; }
+        public PendenciaModel? pendencias { get; set; }
+
+
+        [Display(Name = "Usuário")]
         public int idUsuario { get; set; }
         public LoginModel? usuario { get; set; }
-
 
         public AtendimentoModel salvar(AtendimentoModel model)
         {

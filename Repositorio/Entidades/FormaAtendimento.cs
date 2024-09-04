@@ -8,7 +8,14 @@ namespace Repositorio.Entidades
 {
     public class FormaAtendimento
     {
+        public FormaAtendimento()
+        {
+            this.atendimentos = new HashSet<Atendimento>();
+        }
+
         public int id { get; set; }
         public String descricao { get; set; }
+
+        public virtual ICollection<Atendimento> atendimentos { get; set; }
     }
 }
