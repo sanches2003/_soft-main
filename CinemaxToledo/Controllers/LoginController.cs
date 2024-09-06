@@ -127,14 +127,14 @@ namespace CompusoftAtendimento.Controllers
                 HttpContext.Session.SetInt32("idLogin", model.id );
                 HttpContext.Session.SetString("nomeLogin", model.login);
                 HttpContext.Session.SetInt32("ativoTrue", model.ativo == true?1:0);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("cadastro", "Atendimento");
             }
             else
             {
                 HttpContext.Session.SetInt32("idLogin", model.id);
                 HttpContext.Session.SetString("nomeLogin", model.login);
                 HttpContext.Session.SetInt32("ativoTrue", model.ativo == false ? 1 : 0);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("cadastro", "Atendimento");
             }
         }
 
