@@ -20,8 +20,11 @@ namespace CompusoftAtendimento.Models
         [Display(Name = "Data e Hora")]
         public String DataHora { get; set; }
 
+        [Display(Name = "Assunto do chamado")]
+        public String Assunto { get; set; }
 
-        [Display(Name = "Descricao")]
+
+        [Display(Name = "Descrição do Problema")]
         public String Descricao { get; set; }
 
 
@@ -29,7 +32,7 @@ namespace CompusoftAtendimento.Models
         public String Anexo { get; set; }
 
 
-        [Display(Name = "Descrição Solução")]
+        [Display(Name = "Descrição da Solução")]
         public String DescricaoSolucao { get; set; }
 
 

@@ -12,6 +12,7 @@ namespace Repositorio.Entidades
         public String Contato { get; set; }
         public DateTime DataHora { get; set; }
         public String Descricao { get; set; }
+        public String Assunto { get; set; }
         public String Anexo { get; set; }
         public String DescricaoSolucao { get; set; }
         public String Telefone { get; set; }

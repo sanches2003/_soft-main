@@ -19,7 +19,7 @@ namespace CompusoftAtendimento.Controllers
             ViewBag.listaempresas = listaEmpresa.Select(c => new SelectListItem()
             {
                 Value = c.id.ToString(),
-                Text = c.cnpj
+                Text = c.razaosocial
             });
 
             List<PlataformaModel> listaPlataforma = (new PlataformaModel()).listar();
