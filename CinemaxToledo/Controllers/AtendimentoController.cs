@@ -30,14 +30,14 @@ namespace CompusoftAtendimento.Controllers
             });
 
             List<FormaAtendimentoModel> listaFormaAtendimento = (new FormaAtendimentoModel()).listar();
-            ViewBag.listaformaatendimentos = listaPlataforma.Select(c => new SelectListItem()
+            ViewBag.listaformaatendimentos = listaFormaAtendimento.Select(c => new SelectListItem()
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
 
             List<PendenciaModel> listaPendencia = (new PendenciaModel()).listar();
-            ViewBag.listapendencias = listaPlataforma.Select(c => new SelectListItem()
+            ViewBag.listapendencias = listaPendencia.Select(c => new SelectListItem()
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
@@ -58,6 +58,27 @@ namespace CompusoftAtendimento.Controllers
             });
 
             return View(new AtendimentoModel());
+        }
+
+        [HttpPost]
+        public IActionResult novoAtendimento(AtendimentoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    AtendimentoModel catmodel = new AtendimentoModel();
+                    catmodel.salvar(model);
+                    ViewBag.mensagem = "Dados salvos com sucesso!";
+                    ViewBag.classe = "alert-success";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.mensagem = "ops... Erro ao salvar!" + ex.Message + "/" + ex.InnerException;
+                    ViewBag.classe = "alert-danger";
+                }
+            }
+            return View("cadastro");
         }
 
         [HttpPost]

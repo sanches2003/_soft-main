@@ -11,33 +11,28 @@ namespace CompusoftAtendimento.Models
     public class AtendimentoModel
     {
         [Display(Name = "Código")]
-        public int id { get; set; }
+        public int id { get; set; } 
 
         [Display(Name = "Contato")]
-        public String Contato { get; set; }
-
+        public String? Contato { get; set; } 
 
         [Display(Name = "Data e Hora")]
-        public String DataHora { get; set; }
+        public String? DataHora { get; set; } 
 
         [Display(Name = "Assunto do chamado")]
-        public String Assunto { get; set; }
-
+        public String? Assunto { get; set; } 
 
         [Display(Name = "Descrição do Problema")]
-        public String Descricao { get; set; }
-
+        public String? Descricao { get; set; } 
 
         [Display(Name = "Anexo")]
-        public String Anexo { get; set; }
-
+        public String? Anexo { get; set; } 
 
         [Display(Name = "Descrição da Solução")]
-        public String DescricaoSolucao { get; set; }
-
+        public String? DescricaoSolucao { get; set; } 
 
         [Display(Name = "Telefone")]
-        public String Telefone { get; set; }
+        public String? Telefone { get; set; } 
 
         //FKs
         [Display(Name = "Categoria do Problema")]
