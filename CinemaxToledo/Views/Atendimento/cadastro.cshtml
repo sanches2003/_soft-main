@@ -196,15 +196,28 @@
     <div id="tabContainer" class="tab-container"></div>
     <div id="contentContainer" class="content-container">
         <form asp-controller="Atendimento" asp-action="salvar" method="post">
-        <p class="font-weight-bold">Dados do Atendimento </p> <!-- Texto em negrito -->  
+        <p class="font-weight-bold">Dados do Atendimento </p> <!-- Texto em negrito -->
         <div class="row">
+        <div class="col-6 form-group">
+                    <label asp-for="id"></label>
+                    <input readonly type="text" asp-for="id" class="form-control" />
+                    <span asp-validation-for="id" class="alert-danger"></span>
+                </div>
+                <div class="col-6 form-group">
+                    <label asp-for="DataHora"></label>
+                    <input id="dataHoraInput" readonly type="text" asp-for="DataHora" class="form-control" />
+                    <span asp-validation-for="DataHora" class="alert-danger"></span>
+                </div>
+            
+            </div>
+                <div class="row">
          <div class="col-12 form-group">
                 <label asp-for="idFormaAtendimento"></label>
                 <select class="form-control" style="background-color: #f2f2f2;" asp-for="idFormaAtendimento" asp-items="@ViewBag.listaformaatendimentos">
                     <option>Selecione uma forma de atendimento...</option>
                 </select>
-            </div>
-        </div>
+                    </div>
+         </div>
         <div class="row">
             <div class="col-3 form-group">
                 <label asp-for="idEmpresa"></label>
@@ -292,6 +305,23 @@
 
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        const dataHoraInput = document.getElementById('dataHoraInput');
+        const now = new Date();
+        dataHoraInput.value = formatDate(now);
+    });
+
     let tabCount = 0;
     const maxTabs = 10; // Limite máximo de abas
     let usedNumbers = new Set(); // Conjunto para rastrear números utilizados

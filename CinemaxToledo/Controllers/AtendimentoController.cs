@@ -61,27 +61,6 @@ namespace CompusoftAtendimento.Controllers
         }
 
         [HttpPost]
-        public IActionResult novoAtendimento(AtendimentoModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    AtendimentoModel catmodel = new AtendimentoModel();
-                    catmodel.salvar(model);
-                    ViewBag.mensagem = "Dados salvos com sucesso!";
-                    ViewBag.classe = "alert-success";
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.mensagem = "ops... Erro ao salvar!" + ex.Message + "/" + ex.InnerException;
-                    ViewBag.classe = "alert-danger";
-                }
-            }
-            return View("cadastro");
-        }
-
-        [HttpPost]
         public IActionResult salvar(AtendimentoModel model)
         {
             if (ModelState.IsValid)
@@ -99,7 +78,7 @@ namespace CompusoftAtendimento.Controllers
                     ViewBag.classe = "alert-danger";
                 }
             }
-            return View("cadastro");
+            return RedirectToAction("cadastro");
         }
 
         public IActionResult listar()

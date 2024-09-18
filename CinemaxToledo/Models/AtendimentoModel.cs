@@ -10,7 +10,7 @@ namespace CompusoftAtendimento.Models
 {
     public class AtendimentoModel
     {
-        [Display(Name = "Código")]
+        [Display(Name = "Número do Atendimento")]
         public int id { get; set; } 
 
         [Display(Name = "Contato")]

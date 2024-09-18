@@ -15,7 +15,7 @@ namespace Repositorio.Entidades
         public String Assunto { get; set; }
         public String Anexo { get; set; }
         public String DescricaoSolucao { get; set; }
-        public String Telefone { get; set; }
+        public String? Telefone { get; set; }
 
         //FK:
         public int idCategoriaProblema { get; set; }
