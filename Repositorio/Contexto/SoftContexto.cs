@@ -20,8 +20,6 @@ namespace Repositorio.Contexto
 
         public DbSet<Atendimento> atendimentos { get; set; }
 
-        public DbSet<Pendencia> pendencias { get; set; }
-
         public DbSet<Plataforma> plataformas { get; set; }
 
         public DbSet<FormaAtendimento> formaatendimentos { get; set; }
@@ -50,7 +48,7 @@ namespace Repositorio.Contexto
 
 
 
-            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento6;integrated security=true;Trust Server Certificate=true";
+            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento9;integrated security=true;Trust Server Certificate=true";
             //var stringConexao = @"Server=sql8005.site4now.net;DataBase=db_a98978_felipesanches;user id=db_a98978_felipesanches_admin;password=felipe98767";
 
             if (!optionsBuilder.IsConfigured)
@@ -67,6 +65,7 @@ namespace Repositorio.Contexto
                 entidade.HasKey(e => e.id);// definindo: chave primaria
                 entidade.Property(e => e.Contato).HasMaxLength(20);//qtd max caracteres
                 entidade.Property(e => e.DataHora).HasColumnType("datetime");
+                entidade.Property(e => e.HorasTrabalhadas).HasColumnType("datetime");
                 entidade.Property(e => e.Assunto).HasMaxLength(100);
                 entidade.Property(e => e.Descricao).HasMaxLength(100);
                 entidade.Property(e => e.Anexo).HasMaxLength(255);
@@ -108,13 +107,6 @@ namespace Repositorio.Contexto
                .HasConstraintName("FK_Atendimento_Login") //nome do relacionamento
                .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
 
-                //relacionamento pendencia
-                entidade.HasOne(e => e.pendencia) //o lado da rel. que tem Um
-               .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
-               .HasForeignKey(e => e.idPendencia) //prop chave estrangeira
-               .HasConstraintName("FK_Atendimento_Pendencia") //nome do relacionamento
-               .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
-
                 //relacionamento forma atendimento
                 entidade.HasOne(e => e.formaatendimento) //o lado da rel. que tem Um
                .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
@@ -143,13 +135,6 @@ namespace Repositorio.Contexto
             });
 
             modelBuilder.Entity<Status>(entidade => {
-                entidade.HasKey(e => e.id);//chave primaria
-                //qtde max caracteres
-                entidade.Property(e => e.descricao).HasMaxLength(150);
-
-            });
-
-            modelBuilder.Entity<Pendencia>(entidade => {
                 entidade.HasKey(e => e.id);//chave primaria
                 //qtde max caracteres
                 entidade.Property(e => e.descricao).HasMaxLength(150);

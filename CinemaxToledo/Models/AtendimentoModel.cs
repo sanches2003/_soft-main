@@ -17,7 +17,10 @@ namespace CompusoftAtendimento.Models
         public String? Contato { get; set; } 
 
         [Display(Name = "Data e Hora")]
-        public String? DataHora { get; set; } 
+        public String? DataHora { get; set; }
+
+        [Display(Name = "Horas Trabalhadas")]
+        public String? HorasTrabalhadas { get; set; }
 
         [Display(Name = "Assunto do chamado")]
         public String? Assunto { get; set; } 
@@ -58,11 +61,6 @@ namespace CompusoftAtendimento.Models
         [Display(Name = "Status")]
         public int idStatus { get; set; }
         public StatusModel? status { get; set; }
-
-
-        [Display(Name = "Pendência")]
-        public int idPendencia { get; set; }
-        public PendenciaModel? pendencias { get; set; }
 
 
         [Display(Name = "Usuário")]

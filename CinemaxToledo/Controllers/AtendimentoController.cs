@@ -36,15 +36,8 @@ namespace CompusoftAtendimento.Controllers
                 Text = c.descricao
             });
 
-            List<PendenciaModel> listaPendencia = (new PendenciaModel()).listar();
-            ViewBag.listapendencias = listaPendencia.Select(c => new SelectListItem()
-            {
-                Value = c.id.ToString(),
-                Text = c.descricao
-            });
-
             List<StatusModel> listaStatus = (new StatusModel()).listar();
-           ViewBag.listausuarios = listaStatus.Select(c => new SelectListItem()
+           ViewBag.listastatus = listaStatus.Select(c => new SelectListItem()
             {
                 Value = c.id.ToString(),
                 Text = c.descricao

@@ -33,9 +33,6 @@ namespace CompusoftAtendimento
 
                     cfg.CreateMap<Status, StatusModel>();
                     cfg.CreateMap<StatusModel, Status>();
-
-                    cfg.CreateMap<Pendencia, PendenciaModel>();
-                    cfg.CreateMap<PendenciaModel, Pendencia>();
                 });
 
                 return config;
