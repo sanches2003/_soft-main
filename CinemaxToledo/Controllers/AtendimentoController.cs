@@ -1,56 +1,57 @@
 ﻿using CompusoftAtendimento.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace CompusoftAtendimento.Controllers
 {
     public class AtendimentoController : Controller
     {
-         public IActionResult cadastro()
+        public IActionResult cadastro()
         {
-            List<CategoriaProblemaModel> listaCategoriaProblema = (new CategoriaProblemaModel()).listar();
-            ViewBag.listacategoriaproblemas = listaCategoriaProblema.Select(c => new SelectListItem()
+
+            ViewBag.listacategoriaproblemas = (new CategoriaProblemaModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
 
-            List<EmpresaModel> listaEmpresa = (new EmpresaModel()).listar();
-            ViewBag.listaempresas = listaEmpresa.Select(c => new SelectListItem()
+            ViewBag.listaempresas = (new EmpresaModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.razaosocial
             });
 
-            List<PlataformaModel> listaPlataforma = (new PlataformaModel()).listar();
-            ViewBag.listaplataformas = listaPlataforma.Select(c => new SelectListItem()
+            ViewBag.listaplataformas = (new PlataformaModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
 
-            List<FormaAtendimentoModel> listaFormaAtendimento = (new FormaAtendimentoModel()).listar();
-            ViewBag.listaformaatendimentos = listaFormaAtendimento.Select(c => new SelectListItem()
+            ViewBag.listaformaatendimentos = (new FormaAtendimentoModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
 
-            List<StatusModel> listaStatus = (new StatusModel()).listar();
-           ViewBag.listastatus = listaStatus.Select(c => new SelectListItem()
+            ViewBag.listastatus = (new StatusModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
 
-            List<LoginModel> listaUsuarios = (new LoginModel()).listar();
-            ViewBag.listausuarios = listaUsuarios.Select(c => new SelectListItem()
+            ViewBag.listausuarios = (new LoginModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.login
             });
 
-            return View(new AtendimentoModel());
+            ViewBag.cadastro = new AtendimentoModel();
+
+            AtendimentoModel catModel = new AtendimentoModel();
+            List<AtendimentoModel> lista = catModel.listar();
+            return View(lista); //passando a lista por parametro para a view 
         }
 
         [HttpPost]
@@ -78,13 +79,53 @@ namespace CompusoftAtendimento.Controllers
         {
             AtendimentoModel catModel = new AtendimentoModel();
             List<AtendimentoModel> lista = catModel.listar();
-            return View(lista); //passando a lista por parametro para a view
+            return View(lista); //passando a lista por parametro para a view 
         }
 
         public IActionResult prealterar(int id)
         {
+
+            ViewBag.listacategoriaproblemas = (new CategoriaProblemaModel()).listar().Select(c => new SelectListItem
+            {
+                Value = c.id.ToString(),
+                Text = c.descricao
+            });
+
+            ViewBag.listaempresas = (new EmpresaModel()).listar().Select(c => new SelectListItem
+            {
+                Value = c.id.ToString(),
+                Text = c.razaosocial
+            });
+
+            ViewBag.listaplataformas = (new PlataformaModel()).listar().Select(c => new SelectListItem
+            {
+                Value = c.id.ToString(),
+                Text = c.descricao
+            });
+
+            ViewBag.listaformaatendimentos = (new FormaAtendimentoModel()).listar().Select(c => new SelectListItem
+            {
+                Value = c.id.ToString(),
+                Text = c.descricao
+            });
+
+            ViewBag.listastatus = (new StatusModel()).listar().Select(c => new SelectListItem
+            {
+                Value = c.id.ToString(),
+                Text = c.descricao
+            });
+
+            ViewBag.listausuarios = (new LoginModel()).listar().Select(c => new SelectListItem
+            {
+                Value = c.id.ToString(),
+                Text = c.login
+            });
+
             AtendimentoModel model = new AtendimentoModel();
-            return View("cadastro", model.selecionar(id));
+            ViewBag.cadastro =  model.selecionar(id);
+            AtendimentoModel catModel = new AtendimentoModel();
+            List<AtendimentoModel> lista = catModel.listar();
+            return View("cadastro", lista); //passando a lista por parametro para a view 
         }
 
         public IActionResult excluir(int id)

@@ -49,7 +49,7 @@ namespace CompusoftAtendimento.Controllers
         {
             FormaAtendimentoModel model = new FormaAtendimentoModel();
             return View("cadastro", model.selecionar(id));
-             }
+        }
 
         public IActionResult excluir(int id)
         {

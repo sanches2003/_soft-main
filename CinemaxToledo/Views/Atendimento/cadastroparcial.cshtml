@@ -1,0 +1,559 @@
+﻿@model CompusoftAtendimento.Models.AtendimentoModel
+
+<style>
+    .align-left {
+        text-align: left;
+    }
+
+    .bold-almost {
+        font-weight: 600; /* Valor quase negrito */
+    }
+
+    .font-weight-bold {
+        font-size: 16px; /* Tamanho da fonte para o texto abaixo da linha */
+        font-weight: bold; /* Negrito para destacar o texto */
+        color: #333; /* Cor do texto (opcional) */
+    }
+
+    .timer-label {
+        font-weight: bold;
+        font-size: 14px;
+        color: #333;
+        position: relative;
+        margin-bottom: 5px; /* Espaço entre o timer e os botões */
+    }
+
+    .timer-controls {
+        display: flex;
+        justify-content: flex-end; /* Alinha os botões à direita */
+    }
+
+        .timer-controls button {
+            margin-left: 5px; /* Espaço entre os botões */
+        }
+
+    .custom-button {
+        display: inline-block; /* Para que o botão não ocupe toda a largura */
+        padding: 10px 20px; /* Tamanho do botão */
+        font-size: 16px; /* Tamanho da fonte */
+        font-weight: 600; /* Font-weight igual ao título */
+        color: white; /* Cor do texto branca */
+        background-color: green; /* Cor de fundo verde */
+        border: 2px solid green; /* Borda verde */
+        border-radius: 5px; /* Bordas arredondadas */
+        text-decoration: none; /* Remove o sublinhado padrão */
+        text-align: center; /* Alinha o texto no centro do botão */
+        cursor: pointer; /* Muda o cursor para indicar um link clicável */
+    }
+
+        .custom-button:hover {
+            text-decoration: underline; /* Sublinha o texto ao passar o mouse */
+        }
+
+    .tab-container {
+        margin-top: 20px;
+    }
+
+    .tab {
+        display: inline-flex; /* Flexível para incluir o botão de exclusão */
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        margin-right: 10px;
+        padding: 10px 40px; /* Diminui a largura das abas mais um pouco */
+        background-color: white; /* Cor de fundo branca */
+        color: black; /* Cor do texto preta */
+        border: 2px solid grey; /* Borda cinza */
+        border-radius: 5px; /* Bordas arredondadas */
+        cursor: pointer; /* Muda o cursor para indicar um link clicável */
+        font-size: 16px; /* Tamanho da fonte */
+        text-align: center; /* Alinha o texto no centro da aba */
+        position: relative; /* Para posicionar o botão de exclusão */
+        min-height: 30px; /* Define a altura mínima das abas */
+        line-height: 1.2; /* Ajusta a altura da linha para controlar a altura das abas */
+    }
+
+        .tab.active {
+            background-color: green; /* Fundo verde para a aba ativa */
+            color: white; /* Texto branco para a aba ativa */
+            border: 2px solid green; /* Borda verde para a aba ativa */
+        }
+
+        .tab .close-btn {
+            position: absolute; /* Posiciona o botão de exclusão */
+            top: 50%; /* Centraliza verticalmente */
+            right: 10px; /* Espaço da borda direita */
+            transform: translateY(-50%); /* Ajusta o alinhamento vertical */
+            background: none; /* Sem fundo */
+            color: black; /* Cor do texto preta */
+            border: none; /* Remove a borda padrão */
+            font-size: 14px; /* Tamanho da fonte do botão */
+            cursor: pointer; /* Muda o cursor para indicar um botão clicável */
+        }
+
+            .tab .close-btn:hover {
+                color: darkgray; /* Cor do texto ao passar o mouse */
+            }
+
+    .content-container {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid grey; /* Borda cinza ao redor do container */
+        border-radius: 5px; /* Bordas arredondadas */
+        background-color: #f9f9f9; /* Cor de fundo do container */
+    }
+
+    .radio-group {
+        margin-top: 10px; /* Espaçamento superior para o grupo de rádio */
+        display: flex; /* Exibe os itens em linha */
+        flex-wrap: wrap; /* Permite a quebra de linha se necessário */
+        gap: 15px; /* Espaçamento entre as opções */
+        border-bottom: 1px solid lightgray; /* Linha cinza clara abaixo do grupo */
+    }
+
+        .radio-group label {
+            display: block;
+            margin-left: 150px; /* Espaçamento entre os botões de rádio */
+        }
+
+        .radio-group label {
+            display: flex; /* Alinha o rótulo e o botão de rádio em linha */
+            align-items: center; /* Alinha o botão de rádio verticalmente com o texto */
+            cursor: pointer; /* Indica que o rótulo é clicável */
+        }
+
+    .tab {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        position: relative;
+        background-color: #f9f9f9;
+        overflow: hidden;
+    }
+
+        .tab.active {
+            border-color: #007bff;
+        }
+
+    .timer-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .play-btn, .pause-btn, .close-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        padding: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .play-btn:hover, .pause-btn:hover, .close-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .play-btn i, .pause-btn i {
+            font-size: 18px;
+        }
+
+    .timer {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+    }
+
+    .timer-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-right: 30px; /* Ajusta o padding para garantir espaço para o botão de fechar */
+    }
+
+    .timer-label {
+        display: flex;
+        align-items: center;
+    }
+
+    .number {
+        font-weight: bold;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .timer-display {
+        font-size: 18px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #ff5c5c;
+        color: white;
+        border-radius: 50%;
+        padding: 5px;
+        font-size: 16px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 1; /* Garante que o botão de fechar fique acima dos outros elementos */
+    }
+
+        .close-btn:hover {
+            background-color: #ff3b3b;
+        }
+
+    .line-divider {
+        border-top: 1px solid lightgray; /* Linha divisória cinza clara */
+        margin: 20px 0; /* Espaçamento acima e abaixo da linha */
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div id="tabContainer" class="tab-container"></div>
+<div id="contentContainer" class="content-container">
+    <form asp-controller="Atendimento" asp-action="salvar" method="post">
+        <p class="font-weight-bold">Dados do Atendimento</p>
+        <div class="row align-items-center">
+            <div class="col-3 form-group">
+                <label asp-for="id"></label>
+                <input readonly type="text" asp-for="id" class="form-control" />
+                <span asp-validation-for="id" class="alert-danger"></span>
+            </div>
+            <div class="col-3 form-group">
+                <label asp-for="DataHora"></label>
+                <input id="dataHoraInput" type="datetime" asp-for="DataHora" class="form-control" />
+                <span asp-validation-for="DataHora" class="alert-danger"></span>
+            </div>
+            <div class="col-6 form-group">
+                <div class="d-flex align-items-center">
+                    <div class="timer-controls">
+                        <button type="button" id="startButton" class="btn btn-success btn-sm">Iniciar</button>
+                        <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
+                    </div>
+                    <label asp-for="HorasTrabalhadas"></label>
+                    <input id="timer" type="datetime" value="00:00:00" asp-for="HorasTrabalhadas" class="form-control ml-2" readonly />
+                    <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-group">
+                <label asp-for="idFormaAtendimento"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idFormaAtendimento" asp-items="@ViewBag.listaformaatendimentos">
+                    <option>Selecione uma forma de atendimento...</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 form-group">
+                <label asp-for="idEmpresa"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idEmpresa" asp-items="@ViewBag.listaempresas">
+                    <option>Selecione uma empresa...</option>
+                </select>
+            </div>
+            <div class="col-3 form-group">
+                <label asp-for="Contato"></label>
+                <input type="text" asp-for="Contato" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="Contato" class="alert-danger"></span>
+            </div>
+            <div class="col-3 form-group">
+                <label asp-for="Telefone"></label>
+                <input type="text" asp-for="Telefone" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="Telefone" class="alert-danger"></span>
+            </div>
+            <div class="col-3 form-group">
+                <label asp-for="idPlataforma"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idPlataforma" asp-items="@ViewBag.listaplataformas">
+                    <option>Selecione uma plataforma...</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-group">
+                <label asp-for="idCategoriaProblema"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idCategoriaProblema" asp-items="@ViewBag.listacategoriaproblemas">
+                    <option>Selecione uma categoria de problema...</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-group">
+                <label asp-for="Assunto"></label>
+                <input type="text" asp-for="Assunto" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="Assunto" class="alert-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 form-group">
+                <label asp-for="Descricao"></label>
+                <input type="text" asp-for="Descricao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" />
+                <span asp-validation-for="Descricao" class="alert-danger"></span>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-6 form-group">
+                <label asp-for="Anexo"></label>
+                <input type="file" asp-for="Anexo" class="form-control-file" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" accept=".jpg,.jpeg,.png,.pdf" />
+                <span asp-validation-for="Anexo" class="alert-danger"></span>
+            </div>
+            <div class="col-6 text-right">
+                <button type="submit" value="Salvar" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+        <div class="line-divider"></div>
+        <div class="row">
+            <div class="col-12 form-group">
+                <label asp-for="idStatus"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idStatus" asp-items="@ViewBag.listastatus">
+                    <option>Informe o Status...</option>
+                </select>
+                <div class="row mt-2">
+                    <div class="col-6 form-group">
+                        <label asp-for="idUsuario"></label>
+                        <select class="form-control" style="background-color: #f2f2f2;" asp-for="idUsuario" asp-items="@ViewBag.listausuarios">
+                            <option>Selecione um agente...</option>
+                        </select>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label asp-for="DescricaoSolucao"></label>
+                        <input type="text" asp-for="DescricaoSolucao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" />
+                        <span asp-validation-for="DescricaoSolucao" class="alert-danger"></span>
+                    </div>
+                </div>
+                <div class="center-button">
+                    <center>
+                        <button type="submit" value="Salvar" class="btn btn-success">Concluir</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+    let timerInterval;
+    let seconds = 0;
+
+    document.getElementById('startButton').onclick = function () {
+        document.getElementById('startButton').disabled = true;
+        document.getElementById('pauseButton').disabled = false;
+
+        timerInterval = setInterval(function () {
+            seconds++;
+            const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+
+            // Correção: concatenando as strings corretamente
+            document.getElementById('timer').value = hours + ':' + minutes + ':' + secs;
+        }, 1000);
+    };
+
+    document.getElementById('pauseButton').onclick = function () {
+        clearInterval(timerInterval);
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('pauseButton').disabled = true;
+    };
+
+    document.getElementById('pauseButton').onclick = function () {
+        clearInterval(timerInterval);
+        document.getElementById('startButton').disabled = false;
+        document.getElementById('pauseButton').disabled = true;
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        function formatDate(date) {
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        const dataHoraInput = document.getElementById('dataHoraInput');
+        const now = new Date();
+        dataHoraInput.value = formatDate(now);
+    });
+
+    let tabCount = 0;
+    const maxTabs = 10; // Limite máximo de abas
+    let usedNumbers = new Set(); // Conjunto para rastrear números utilizados
+    let availableNumbers = Array.from({ length: maxTabs }, (_, i) => i + 1); // Números disponíveis de 1 a 10
+    let tabData = {}; // Objeto para armazenar os dados de cada aba
+    let currentTabId = null; // Armazena o ID da aba ativa
+
+    document.getElementById('newAttButton').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Verifica se o número máximo de abas foi alcançado
+        if (tabCount >= maxTabs) {
+            alert('Número máximo de atendimentos alcançado.');
+            return;
+        }
+
+        // Seleciona um número disponível
+        const number = availableNumbers.shift(); // Remove o primeiro número da lista de disponíveis
+        if (number === undefined) {
+            alert('Todos os números de atendimento já foram utilizados.');
+            return;
+        }
+
+        // Marca o número como utilizado
+        usedNumbers.add(number);
+
+        // Cria uma nova aba
+        tabCount++;
+        const tab = document.createElement('div');
+        tab.className = 'tab';
+        tab.dataset.id = number; // Adiciona um ID para identificar a aba
+
+        // Cria o contêiner do timer e botões de controle
+        const timerContainer = document.createElement('div');
+        timerContainer.className = 'timer-controls';
+
+        const timerLabel = document.createElement('div');
+        timerLabel.className = 'timer-container';
+
+        const numberLabel = document.createElement('span');
+        numberLabel.className = 'number';
+        numberLabel.textContent = `ID: ${number}`;
+
+        const timerDisplay = document.createElement('span');
+        timerDisplay.className = 'timer-display';
+        timerDisplay.textContent = '00:00:00';
+
+        timerLabel.appendChild(numberLabel);
+        timerLabel.appendChild(timerDisplay);
+
+        const playButton = document.createElement('button');
+        playButton.className = 'play-btn';
+        playButton.innerHTML = '<i class="fas fa-play"></i>'; // Ícone de Play
+
+        const pauseButton = document.createElement('button');
+        pauseButton.className = 'pause-btn';
+        pauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // Ícone de Pause
+
+        // Adiciona o timer e os botões ao contêiner
+        timerContainer.appendChild(timerLabel);
+        timerContainer.appendChild(playButton);
+        timerContainer.appendChild(pauseButton);
+
+        tab.appendChild(timerContainer);
+
+        // Adiciona o botão de exclusão à aba
+        const closeButton = document.createElement('button');
+        closeButton.className = 'close-btn';
+        closeButton.innerHTML = '<i class="fas fa-times"></i>'; // Ícone de Fechar
+        tab.appendChild(closeButton);
+
+        // Adiciona a nova aba ao contêiner
+        document.getElementById('tabContainer').appendChild(tab);
+
+        // Adiciona um evento de clique para a aba
+        tab.addEventListener('click', function () {
+            // Remove a classe 'active' de todas as abas
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+
+            // Adiciona a classe 'active' à aba clicada
+            this.classList.add('active');
+            currentTabId = number;
+            loadTabData(number); // Carrega os dados da aba atual
+        });
+
+        // Configura o timer
+        let timerInterval;
+        let seconds = 0;
+        let isRunning = false;
+
+        // Função para atualizar o timer
+        const updateTimer = () => {
+            seconds++;
+            const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+            const secs = String(seconds % 60).padStart(2, '0');
+            timerDisplay.textContent = `${hrs}:${mins}:${secs}`;
+        };
+
+        playButton.addEventListener('click', function () {
+            if (isRunning) return;
+            isRunning = true;
+            timerInterval = setInterval(updateTimer, 1000);
+        });
+
+        pauseButton.addEventListener('click', function () {
+            if (!isRunning) return;
+            isRunning = false;
+            clearInterval(timerInterval);
+        });
+
+        // Adiciona um evento de clique para o botão de exclusão
+        closeButton.addEventListener('click', function (event) {
+            event.stopPropagation(); // Evita que o clique no botão de exclusão ative a aba
+            tab.remove(); // Remove a aba
+            tabCount--; // Decrementa o contador de abas
+
+            // Marca o número como disponível novamente
+            const number = parseInt(tab.dataset.id);
+            if (usedNumbers.has(number)) {
+                usedNumbers.delete(number);
+                availableNumbers.push(number); // Adiciona o número de volta à lista de disponíveis
+                availableNumbers.sort((a, b) => a - b); // Ordena a lista de disponíveis para garantir ordem crescente
+            }
+
+            // Pausa o timer se a aba for fechada
+            if (isRunning) {
+                clearInterval(timerInterval);
+            }
+        });
+
+        // Adiciona um evento para garantir que a aba recém-criada seja ativada e carregue os dados
+        tab.click();
+    });
+
+    // Função para salvar os dados da aba atual
+    function saveTabData(tabId) {
+        if (currentTabId === null) return;
+
+        const form = document.querySelector('.content-container');
+        const formData = new FormData(form);
+
+        tabData[tabId] = {};
+        formData.forEach((value, key) => {
+            tabData[tabId][key] = value;
+        });
+    }
+
+    // Função para carregar os dados da aba
+    function loadTabData(tabId) {
+        if (!tabData[tabId]) return;
+
+        const form = document.querySelector('.content-container');
+        const elements = form.querySelectorAll('input, select');
+
+        elements.forEach(el => {
+            if (el.name in tabData[tabId]) {
+                if (el.type === 'file') {
+                    // Para campos de arquivo, você precisará de uma solução alternativa para carregar o arquivo
+                    // Como os arquivos não podem ser armazenados diretamente, você pode exibir uma mensagem ou limpar o campo
+                    el.value = ''; // Limpa o campo de arquivo
+                } else {
+                    el.value = tabData[tabId][el.name];
+                }
+            }
+        });
+    }
+
+    // Atualiza os dados ao mudar de aba
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('tab')) {
+            saveTabData(currentTabId); // Salva os dados da aba atual
+        }
+    });
+</script>
