@@ -36,7 +36,7 @@ namespace CompusoftAtendimento.Controllers
                     ViewBag.classe = "alert-danger";
                 }
             }
-            return View("cadastro");
+            return View("listar");
         }
 
         public IActionResult listar()

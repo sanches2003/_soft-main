@@ -215,7 +215,7 @@
 
 <div id="tabContainer" class="tab-container"></div>
 <div id="contentContainer" class="content-container">
-    <form asp-controller="Atendimento" asp-action="salvar" method="post">
+    <form asp-controller="Atendimento" asp-action="salvaralterar" method="post">
         <p class="font-weight-bold">Dados do Atendimento</p>
         <div class="row align-items-center">
             <div class="col-3 form-group">
@@ -235,7 +235,7 @@
                         <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
                     </div>
                     <label asp-for="HorasTrabalhadas"></label>
-                    <input id="timer" type="datetime" asp-for="HorasTrabalhadas" class="form-control ml-2" readonly />
+                    <input id="timer" type="datetime" value="00:00:00" asp-for="HorasTrabalhadas" class="form-control ml-2" readonly />
                     <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
                 </div>
             </div>

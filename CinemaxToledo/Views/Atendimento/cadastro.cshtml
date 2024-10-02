@@ -199,44 +199,91 @@
         .line-divider {
         border-top: 1px solid lightgray; /* Linha divisória cinza clara */
         margin: 20px 0; /* Espaçamento acima e abaixo da linha */
-        }       
+        }
 
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Espaçamento entre os cartões */
+        justify-content: flex-start; /* Alinha os cartões à esquerda */
+    }
+
+    .card-link {
+        text-decoration: none; /* Remove a decoração de link */
+        color: inherit; /* Garante que a cor do texto não seja alterada */
+        width: auto; /* O link ajusta-se ao tamanho do cartão */
+    }
+
+    .card {
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 5px; /* Reduzindo o espaçamento interno */
+        width: 120px; /* Definindo uma largura menor para os cartões */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Efeito de hover no cartão */
+        }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .card-header h5 {
+            margin: 0;
+            font-size: 12px; /* Diminuindo o tamanho da fonte */
+            font-weight: bold;
+        }
+
+    .close-button {
+        font-size: 12px; /* Diminuindo o tamanho do "X" */
+        color: #ff0000; /* Cor do "X" */
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .close-button:hover {
+            color: #cc0000; /* Cor ao passar o mouse */
+        }
 
 </style>
+
+<span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
+<script>
+    function confirmExclusao(id) {
+        if (confirm("Tem certeza que deseja excluir este de chamado?")) {
+            location.href = "/Atendimento/excluir/" + id;
+        }
+    }
+</script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <div class="align-left">
     <h1>Atendimento</h1>
-    <a href="#" class="custom-button" id="newAttButton">Novo Atendimento</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- listar -->
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <th scope="row">@item.id</th>
-                    <td>@item.Assunto</td>
-                    <td>
-                        <a href="~/Atendimento/prealterar/@item.id" class="btn btn-primary" style="background-color: #021532; border-color: #021532;">
-                            Alterar
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#" onclick="confirmExclusao(@item.id)" class="btn btn-primary" style="background-color: #021532; border-color: #021532;">
-                            Excluir
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <a asp-action="cadastro" asp-controller="atendimento" class="custom-button">Novo Atendimento</a>
+    <div class="card-container">
+        @foreach (var item in Model)
+        {
+            <a href="~/Atendimento/prealterar/@item.id" class="card-link">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>ID: @item.id</h5>
+                        <a href="#" class="close-button" onclick="confirmExclusao(@item.id)">&times;</a>
+                    </div>
+                    <!-- card-body removido -->
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+
 
     @Html.Partial("cadastroparcial", (AtendimentoModel)ViewBag.cadastro)
     
