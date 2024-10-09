@@ -48,7 +48,7 @@ namespace Repositorio.Contexto
 
 
 
-            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento10;integrated security=true;Trust Server Certificate=true";
+            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento14;integrated security=true;Trust Server Certificate=true";
             //var stringConexao = @"Server=sql8005.site4now.net;DataBase=db_a98978_felipesanches;user id=db_a98978_felipesanches_admin;password=felipe98767";
 
             if (!optionsBuilder.IsConfigured)
@@ -71,6 +71,8 @@ namespace Repositorio.Contexto
                 entidade.Property(e => e.Anexo).HasMaxLength(255);
                 entidade.Property(e => e.DescricaoSolucao).HasMaxLength(100);
                 entidade.Property(e => e.Telefone).HasMaxLength(15);
+                // Convertendo StatusModel para string
+                entidade.Property(e => e.Status).HasMaxLength(50);
 
                 //relacionamento categoria
                 entidade.HasOne(e => e.categoriaproblema) //o lado da rel. que tem Um
@@ -93,12 +95,14 @@ namespace Repositorio.Contexto
                .HasConstraintName("FK_Atendimento_Plataforma") //nome do relacionamento
                .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
 
+                /*
                 //relacionamento status
                 entidade.HasOne(e => e.status) //o lado da rel. que tem Um
                .WithMany(c => c.atendimentos) //o lado da rel. que tem Muitos
                .HasForeignKey(e => e.idStatus) //prop chave estrangeira
                .HasConstraintName("FK_Atendimento_Status") //nome do relacionamento
                .OnDelete(DeleteBehavior.NoAction); //configuração da exclusao
+                */
 
                 //relacionamento usuario
                 entidade.HasOne(e => e.login) //o lado da rel. que tem Um

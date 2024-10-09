@@ -2,8 +2,11 @@
 @{
     ViewData["Title"] = "listar";
 }
-<div class="container">
-    <!-- Estrutura flexível para o título e o botão -->
+
+<!--
+
+
+<div class="container"> 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Status</h1>
         <a href="~/status/cadastro" class="btn btn-info" style="background-color: #021532; border-color: #021532;">
@@ -34,15 +37,15 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <th scope="row">@item.id</th>
-                    <td>@item.descricao</td>
+                    <th scope="row">@item</th>
+                    <td>@item</td>
                     <td>
-                        <a href="~/status/prealterar/@item.id" class="btn btn-primary" style="background-color: #021532; border-color: #021532;">
+                        <a href="~/status/prealterar/@item." class="btn btn-primary" style="background-color: #021532; border-color: #021532;">
                             Alterar
                         </a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-primary" onclick="confirmExclusao(@item.id)" style="background-color: #021532; border-color: #021532;">
+                        <a href="#" class="btn btn-primary" onclick="confirmExclusao(@item.)" style="background-color: #021532; border-color: #021532;">
                             Excluir
                         </a>
                     </td>
@@ -51,4 +54,5 @@
         </tbody>
     </table>
 </div>
-
+ -->
+ 

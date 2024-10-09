@@ -10,8 +10,6 @@ namespace CompusoftAtendimento.Models
 {
     public class AtendimentoModel
     {
-
-
         [Display(Name = "Número do Atendimento")]
         public int id { get; set; } 
 
@@ -37,36 +35,46 @@ namespace CompusoftAtendimento.Models
         public String? DescricaoSolucao { get; set; } 
 
         [Display(Name = "Telefone")]
-        public String? Telefone { get; set; } 
+        public String? Telefone { get; set; }
 
         //FKs
         [Display(Name = "Categoria do Problema")]
-        public int idCategoriaProblema { get; set; }
+        public int? idCategoriaProblema { get; set; }
         public CategoriaProblemaModel? categoriaproblema { get; set; }
 
 
         [Display(Name = "Empresa")]
-        public int idEmpresa { get; set; }
+        public int? idEmpresa { get; set; }
         public EmpresaModel? empresa { get; set; }
 
 
         [Display(Name = "Plataforma")]
-        public int idPlataforma { get; set; }
+        public int? idPlataforma { get; set; }
         public PlataformaModel? plataforma { get; set; }
 
 
         [Display(Name = "Forma de Atendimento")]
-        public int idFormaAtendimento { get; set; }
+        public int? idFormaAtendimento { get; set; }
         public FormaAtendimentoModel? formaatendimento { get; set; }
 
-
-        [Display(Name = "Status")]
+        /*
+        [Display(Name = "Status")]       
         public int idStatus { get; set; }
         public StatusModel? status { get; set; }
+        */
+
+        [Display(Name = "Status")]
+        // Propriedade do tipo enum StatusModel
+        public StatusModel? Status { get; set; }
+        public String? StatusString
+        {
+            get => Status.ToString();
+            set => Status = (StatusModel)Enum.Parse(typeof(StatusModel), value);
+        }
 
 
         [Display(Name = "Usuário")]
-        public int idUsuario { get; set; }
+        public int? idUsuario { get; set; }
         public LoginModel? usuario { get; set; }
 
         public AtendimentoModel salvar(AtendimentoModel model)

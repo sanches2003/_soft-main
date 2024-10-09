@@ -235,7 +235,7 @@
                         <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
                     </div>
                     <label asp-for="HorasTrabalhadas"></label>
-                    <input id="timer" type="datetime" asp-for="HorasTrabalhadas" class="form-control ml-2" readonly />
+                    <input id="timer" type="time" asp-for="HorasTrabalhadas" class="form-control ml-2" readonly />
                     <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
                 </div>
             </div>
@@ -307,10 +307,12 @@
         <div class="line-divider"></div>
         <div class="row">
             <div class="col-12 form-group">
-                <label asp-for="idStatus"></label>
-                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idStatus" asp-items="@ViewBag.listastatus">
-                    <option>Informe o Status...</option>
-                </select>
+                <div class="form-group">
+                    <label asp-for="Status">Status</label>
+                    <select asp-for="Status" asp-items="@ViewBag.listastatus" id="status" name="Status" class="form-control">
+                        <option>Selecione o status do atendimento...</option>
+                    </select>
+                </div>
                 <div class="row mt-2">
                     <div class="col-6 form-group">
                         <label asp-for="idUsuario"></label>

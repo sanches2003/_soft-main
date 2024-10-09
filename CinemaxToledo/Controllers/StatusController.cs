@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 
+/*
 namespace CompusoftAtendimento.Controllers
 {
     public class StatusController : Controller
@@ -71,3 +72,4 @@ namespace CompusoftAtendimento.Controllers
 
     }
 }
+*/

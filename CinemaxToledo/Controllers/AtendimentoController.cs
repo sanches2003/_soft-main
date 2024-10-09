@@ -35,11 +35,22 @@ namespace CompusoftAtendimento.Controllers
                 Text = c.descricao
             });
 
+            /*
             ViewBag.listastatus = (new StatusModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
+            */
+
+            // Convertendo o enum StatusModel para SelectListItem
+            ViewBag.listastatus = Enum.GetValues(typeof(StatusModel))
+                                      .Cast<StatusModel>()
+                                      .Select(s => new SelectListItem
+                                      {
+                                          Value = ((int)s).ToString(), // O valor numérico do enum
+                                          Text = s.ToString() // O nome do enum como texto
+                                      }).ToList();
 
             ViewBag.listausuarios = (new LoginModel()).listar().Select(c => new SelectListItem
             {
@@ -54,6 +65,7 @@ namespace CompusoftAtendimento.Controllers
             return View(lista); //passando a lista por parametro para a view 
         }
 
+        /*
         [HttpPost]
         public IActionResult salvar(AtendimentoModel model)
         {
@@ -72,6 +84,28 @@ namespace CompusoftAtendimento.Controllers
                     ViewBag.classe = "alert-danger";
                 }
             }
+            return RedirectToAction("cadastro");
+        }
+        */
+
+        [HttpPost]
+        public IActionResult salvar(AtendimentoModel model)
+        {
+            try
+            {
+                // Não verifica se o modelo é nulo, pois queremos permitir campos nulos
+                AtendimentoModel catmodel = new AtendimentoModel();
+                catmodel.salvar(model); // Certifique-se de que este método trata nulos corretamente
+                ViewBag.mensagem = "Dados salvos com sucesso!";
+                ViewBag.classe = "alert-success";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mensagem = "Ops... Erro ao salvar! " + ex.Message +
+                                   (ex.InnerException != null ? " / " + ex.InnerException.Message : "");
+                ViewBag.classe = "alert-danger";
+            }
+
             return RedirectToAction("cadastro");
         }
 
@@ -131,12 +165,22 @@ namespace CompusoftAtendimento.Controllers
                 Text = c.descricao
             });
 
+            /*
             ViewBag.listastatus = (new StatusModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
+            */
 
+            // Convertendo o enum StatusModel para SelectListItem
+            ViewBag.listastatus = Enum.GetValues(typeof(StatusModel))
+                                      .Cast<StatusModel>()
+                                      .Select(s => new SelectListItem
+                                      {
+                                          Value = ((int)s).ToString(), // O valor numérico do enum
+                                          Text = s.ToString() // O nome do enum como texto
+                                      }).ToList();
             ViewBag.listausuarios = (new LoginModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
@@ -177,12 +221,22 @@ namespace CompusoftAtendimento.Controllers
                 Text = c.descricao
             });
 
+            /*
             ViewBag.listastatus = (new StatusModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),
                 Text = c.descricao
             });
+            */
 
+            // Convertendo o enum StatusModel para SelectListItem
+            ViewBag.listastatus = Enum.GetValues(typeof(StatusModel))
+                                      .Cast<StatusModel>()
+                                      .Select(s => new SelectListItem
+                                      {
+                                          Value = ((int)s).ToString(), // O valor numérico do enum
+                                          Text = s.ToString() // O nome do enum como texto
+                                      }).ToList();
             ViewBag.listausuarios = (new LoginModel()).listar().Select(c => new SelectListItem
             {
                 Value = c.id.ToString(),

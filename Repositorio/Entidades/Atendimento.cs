@@ -9,33 +9,33 @@ namespace Repositorio.Entidades
     public class Atendimento
     {
         public int id { get; set; }
-        public String Contato { get; set; }
-        public DateTime DataHora { get; set; }
-        public DateTime HorasTrabalhadas { get; set; }
-        public String Descricao { get; set; }
-        public String Assunto { get; set; }
-        public String Anexo { get; set; }
-        public String DescricaoSolucao { get; set; }
+        public String? Contato { get; set; }
+        public DateTime? DataHora { get; set; }
+        public DateTime? HorasTrabalhadas { get; set; }
+        public String? Descricao { get; set; }
+        public String? Assunto { get; set; }
+        public String? Anexo { get; set; }
+        public String? DescricaoSolucao { get; set; }
         public String? Telefone { get; set; }
+        //Teste:
+        public String? Status { get; set; }
 
         //FK:
-        public int idCategoriaProblema { get; set; }
-        public int idEmpresa { get; set; }
-        public int idPlataforma { get; set; }
-        public int idStatus { get; set; }
-        public int idUsuario { get; set; }
-        public int idFormaAtendimento { get; set; }
+        public int? idCategoriaProblema { get; set; }
+        public int? idEmpresa { get; set; }
+        public int? idPlataforma { get; set; }
+        public int? idUsuario { get; set; }
+        public int? idFormaAtendimento { get; set; }
 
 
         //public int idTempo { get; set; }  -- Relógio
 
         //relacionamento
-        public virtual CategoriaProblema categoriaproblema { get; set; }
-        public virtual Empresa empresa { get; set; }
-        public virtual Plataforma plataforma { get; set; }
-        public virtual Status status { get; set; }
-        public virtual Login login { get; set; }
-        public virtual FormaAtendimento formaatendimento { get; set; }
+        public virtual CategoriaProblema? categoriaproblema { get; set; }
+        public virtual Empresa? empresa { get; set; }
+        public virtual Plataforma? plataforma { get; set; }
+        public virtual Login? login { get; set; }
+        public virtual FormaAtendimento? formaatendimento { get; set; }
 
     }
 }
