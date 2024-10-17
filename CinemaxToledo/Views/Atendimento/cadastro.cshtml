@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var id = @Context.Session.GetInt32("idLogin");
 }
 <style>
     .align-left {
@@ -270,17 +271,20 @@
     <div class="card-container">
         @foreach (var item in Model)
         {
-            if (item.Status != StatusModel.Concluido) // Comparando o enum StatusModel
+            if (id == item.idUsuario)
             {
-                <a href="~/Atendimento/prealterar/@item.id" class="card-link">
-                    <div class="card mt-3">
-                        <div class="card-header">
-                            <h5>ID: @item.id</h5>  <!-- Exibindo o ID do atendimento -->
-                            <a href="#" class="close-button" onclick="confirmExclusao(@item.id)">&times;</a>  <!-- ID no evento de exclusão -->
+                if (item.Status != StatusModel.Concluido) // Comparando o enum StatusModel
+                {
+                    <a href="~/Atendimento/prealterar/@item.id" class="card-link">
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h5>ID: @item.id</h5>  <!-- Exibindo o ID do atendimento -->
+                                <a href="#" class="close-button" onclick="confirmExclusao(@item.id)">&times;</a>  <!-- ID no evento de exclusão -->
+                            </div>
                         </div>
-                    </div>
-                </a>
-            }
+                    </a>
+                }
+            }            
         }
     </div>
 

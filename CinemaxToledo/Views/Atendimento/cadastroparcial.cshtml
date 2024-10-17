@@ -1,5 +1,9 @@
 ﻿@model CompusoftAtendimento.Models.AtendimentoModel
 
+@{
+    // Recupera o ID da sessão
+    var idUsuario = @Context.Session.GetInt32("idLogin");
+}
 <style>
     .align-left {
         text-align: left;
@@ -300,9 +304,15 @@
                 <input type="file" asp-for="Anexo" class="form-control-file" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" accept=".jpg,.jpeg,.png,.pdf" />
                 <span asp-validation-for="Anexo" class="alert-danger"></span>
             </div>
-            <div class="col-6 text-right">
-                <button type="submit" value="Salvar" class="btn btn-success">Salvar</button>
-            </div>
+        <div class="col-6 form-group">            
+              <label asp-for="idUsuario"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idUsuario" asp-items="@ViewBag.listausuarios">
+                    <option value="id">Selecione uma categoria de problema...</option>
+              </select>
+        </div>
+        </div>
+        <div class="mt-2 text-right">
+            <button type="submit" value="Salvar" class="btn btn-success">Salvar</button>
         </div>
         <div class="line-divider"></div>
         <div class="row">
@@ -314,13 +324,7 @@
                     </select>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-6 form-group">
-                        <label asp-for="idUsuario"></label>
-                        <select class="form-control" style="background-color: #f2f2f2;" asp-for="idUsuario" asp-items="@ViewBag.listausuarios">
-                            <option>Selecione um agente...</option>
-                        </select>
-                    </div>
-                    <div class="col-6 form-group">
+                    <div class="col-12 form-group">
                         <label asp-for="DescricaoSolucao"></label>
                         <input type="text" asp-for="DescricaoSolucao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" />
                         <span asp-validation-for="DescricaoSolucao" class="alert-danger"></span>
@@ -334,7 +338,6 @@
             </div>
         </div>
     </form>
-</div>
 </div>
 
 <script>
