@@ -113,20 +113,19 @@ namespace CompusoftAtendimento.Controllers
         [HttpPost]
         public IActionResult salvaralterar(AtendimentoModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    AtendimentoModel catmodel = new AtendimentoModel();
-                    catmodel.salvar(model);
-                    ViewBag.mensagem = "Dados salvos com sucesso!";
-                    ViewBag.classe = "alert-success";
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.mensagem = "ops... Erro ao salvar!" + ex.Message + "/" + ex.InnerException;
-                    ViewBag.classe = "alert-danger";
-                }
+                // Não verifica se o modelo é nulo, pois queremos permitir campos nulos
+                AtendimentoModel catmodel = new AtendimentoModel();
+                catmodel.salvar(model); // Certifique-se de que este método trata nulos corretamente
+                ViewBag.mensagem = "Dados salvos com sucesso!";
+                ViewBag.classe = "alert-success";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mensagem = "Ops... Erro ao salvar! " + ex.Message +
+                                   (ex.InnerException != null ? " / " + ex.InnerException.Message : "");
+                ViewBag.classe = "alert-danger";
             }
             return RedirectToAction("listar");
         }

@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Fila de Atendimentos";
 
-
+    var adm = @Context.Session.GetInt32("ativoTrue");
 
     var id = @Context.Session.GetInt32("idLogin");
 }
@@ -29,13 +29,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-
-
-
-                if (id == item.idUsuario)
-
-
-
+                if (adm == 1)  // Se admin, mostra todos os atendimentos que não estão concluídos
                 {
                     <tr>
                         <td>@item.id</td>
@@ -49,6 +43,24 @@
                             </a>
                         </td>
                     </tr>
+                }
+                else if  (adm == 0)
+                    {
+                        if (id == item.idUsuario)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.Assunto</td>
+                                <td>@item.Contato</td>
+                                <td>@item.categoriaproblema</td>
+                                <td>@item.Status</td>
+                                <td>
+                                    <a href="~/Atendimento/alterar/@item.id" class="btn btn-secondary" style="background-color: #021532; border-color: #021532;">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                 }
             }
         </tbody>
