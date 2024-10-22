@@ -48,7 +48,7 @@ namespace Repositorio.Contexto
 
 
 
-            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento15;integrated security=true;Trust Server Certificate=true";
+            var stringConexao = @"Server=FELIPE_SANCHES;DataBase=_compusoftatendimento16;integrated security=true;Trust Server Certificate=true";
             //var stringConexao = @"Server=sql8005.site4now.net;DataBase=db_a98978_felipesanches;user id=db_a98978_felipesanches_admin;password=felipe98767";
 
             if (!optionsBuilder.IsConfigured)
@@ -65,7 +65,7 @@ namespace Repositorio.Contexto
                 entidade.HasKey(e => e.id);// definindo: chave primaria
                 entidade.Property(e => e.Contato).HasMaxLength(20);//qtd max caracteres
                 entidade.Property(e => e.DataHora).HasColumnType("datetime");
-                entidade.Property(e => e.HorasTrabalhadas).HasColumnType("datetime");
+                entidade.Property(e => e.HorasTrabalhadas).HasColumnType("time");
                 entidade.Property(e => e.Assunto).HasMaxLength(100);
                 entidade.Property(e => e.Descricao).HasMaxLength(100);
                 entidade.Property(e => e.Anexo).HasMaxLength(255);

@@ -11,7 +11,7 @@ namespace Repositorio.Entidades
         public int id { get; set; }
         public String? Contato { get; set; }
         public DateTime? DataHora { get; set; }
-        public DateTime? HorasTrabalhadas { get; set; }
+        public TimeSpan? HorasTrabalhadas { get; set; }
         public String? Descricao { get; set; }
         public String? Assunto { get; set; }
         public String? Anexo { get; set; }
