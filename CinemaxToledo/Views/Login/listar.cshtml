@@ -1,53 +1,74 @@
 ﻿@model IEnumerable<LoginModel>
 @{
-    ViewData["Title"] = "listar";
+    ViewData["Title"] = "Listar Usuários";
 }
 
-<div class="container">
+<div class="container mt-5">
     <!-- Estrutura flexível para o título e o botão -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Usuários</h1>
-        <a href="~/login/cadastro" class="btn btn-info" style="background-color: #021532; border-color: #021532;">
-            Novo
+        <h1 class="text-dark font-weight-bold">Usuários</h1>
+        <a href="~/login/cadastro" class="btn btn-dark" style="background-color: #021532; border-color: #021532;">
+            <i class="fas fa-plus mr-2"></i> Novo
         </a>
     </div>
 
-    <span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
+    <!-- Alerta de mensagem -->
+    @if (!string.IsNullOrEmpty(ViewBag.mensagem))
+
+    {
+        <div class="alert @ViewBag.classe alert-dismissible fade show" role="alert" style="background-color: #021532; color: white;">
+            @ViewBag.mensagem
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="color: white;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
     <script>
         function confirmExclusao(id) {
-            if (confirm("Tem certeza que deseja excluir essa forma de atendimento?")) {
+            if (confirm("Tem certeza que deseja excluir esse usuário?")) {
                 location.href = "/Login/excluir/" + id;
             }
         }
     </script>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Usuário</th>
-                <th scope="col">Alterar</th>
-                <th scope="col">Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <!-- Tabela de listagem de usuários -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead style="background-color: #021532; color: white;">
                 <tr>
-                    <th scope="row">@item.id</th>
-                    <td>@item.login</td>
-                    <td>
-                        <a href="~/Login/prealterar/@item.id" class="btn btn-primary" style="background-color: #021532; border-color: #021532;">
-                            Alterar
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#" onclick="confirmExclusao(@item.id)" class="btn btn-primary" style="background-color: #021532; border-color: #021532;">
-                            Excluir
-                        </a>
-                    </td>
+                    <th scope="col">Código</th>
+                    <th scope="col">Usuário</th>
+                    <th scope="col">Alterar</th>
+                    <th scope="col">Excluir</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+
+                {
+                    <tr>
+                        <th scope="row">@item.id</th>
+                        <td>@item.login</td>
+                        <td>
+                            <a href="~/Login/prealterar/@item.id" class="btn btn-outline-dark btn-sm" style="color: #021532; border-color: #021532;">
+                                <i class="fas fa-edit"></i> Alterar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" onclick="confirmExclusao(@item.id)" class="btn btn-outline-danger btn-sm" style="color: #021532; border-color: #021532;">
+                                <i class="fas fa-trash-alt"></i> Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<!-- Scripts necessários para Bootstrap e FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

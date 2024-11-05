@@ -1,126 +1,114 @@
 ﻿@model EmpresaModel
 @{
-    ViewData["Title"] = "cadastro";
+    ViewData["Title"] = "Cadastro de Empresas";
 }
 
-
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- jQuery Mask Plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
+<div class="container mt-5">
+    <h1 class="text-dark font-weight-bold">Cadastro de Empresas</h1>
+    <br />
 
-<h1>Empresas</h1>
-<br />
+    <form asp-action="salvar" asp-controller="Empresa" method="post">
+        <!-- Dados da Empresa -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2>Dados da Empresa</h2>
+            </div>
+            <div class="col-md-1 form-group">
+                <label asp-for="id" class="font-weight-bold"></label>
+                <input readonly type="text" asp-for="id" class="form-control" />
+                <span asp-validation-for="id" class="alert-danger"></span>
+            </div>
+            <div class="col-md-7 form-group">
+                <label asp-for="razaosocial" class="font-weight-bold"></label>
+                <input type="text" asp-for="razaosocial" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="razaosocial" class="alert-danger"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label asp-for="cnpj" class="font-weight-bold"></label>
+                <input id="cnpj" type="text" asp-for="cnpj" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="cnpj" class="alert-danger"></span>
+            </div>
+        </div>
 
-<form asp-action="salvar" asp-controller="Empresa" method="post">
+        <!-- Sobre a Empresa -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2>Sobre a Empresa</h2>
+            </div>
+            <div class="col-12 form-group">
+                <label asp-for="telefone" class="font-weight-bold"></label>
+                <input id="telefone" type="text" asp-for="telefone" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="telefone" class="alert-danger"></span>
+            </div>
+            <div class="col-12 form-group">
+                <label asp-for="celular" class="font-weight-bold"></label>
+                <input id="celular" type="text" asp-for="celular" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="celular" class="alert-danger"></span>
+            </div>
+            <div class="col-12 form-group">
+                <label asp-for="email" class="font-weight-bold"></label>
+                <input type="email" asp-for="email" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="email" class="alert-danger"></span>
+            </div>
+        </div>
 
-    <!-- Dados da Empresa -->
-    <div class="row">
-        <div class="col-12">
-            <h2>Dados</h2>
+        <!-- Endereço -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2>Endereço</h2>
+            </div>
+            <div class="col-md-2 form-group">
+                <label asp-for="cep" class="font-weight-bold"></label>
+                <input id="cep" type="text" asp-for="cep" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="cep" class="alert-danger"></span>
+            </div>
+            <div class="col-md-10 form-group">
+                <label asp-for="logradouro" class="font-weight-bold"></label>
+                <input type="text" asp-for="logradouro" class="form-control" style="background-color: #f2f2f2;" readonly />
+                <span asp-validation-for="logradouro" class="alert-danger"></span>
+            </div>
+            <div class="col-md-2 form-group">
+                <label asp-for="numero" class="font-weight-bold"></label>
+                <input type="number" asp-for="numero" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="numero" class="alert-danger"></span>
+            </div>
+            <div class="col-md-5 form-group">
+                <label asp-for="bairro" class="font-weight-bold"></label>
+                <input type="text" asp-for="bairro" class="form-control" style="background-color: #f2f2f2;" readonly />
+                <span asp-validation-for="bairro" class="alert-danger"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label asp-for="cidade" class="font-weight-bold"></label>
+                <input type="text" asp-for="cidade" class="form-control" style="background-color: #f2f2f2;" readonly />
+                <span asp-validation-for="cidade" class="alert-danger"></span>
+            </div>
+            <div class="col-md-1 form-group">
+                <label asp-for="estado" class="font-weight-bold"></label>
+                <input type="text" asp-for="estado" class="form-control" style="background-color: #f2f2f2;" readonly />
+                <span asp-validation-for="estado" class="alert-danger"></span>
+            </div>
+            <div class="col-12 form-group">
+                <label asp-for="complemento" class="font-weight-bold"></label>
+                <input type="text" asp-for="complemento" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="complemento" class="alert-danger"></span>
+            </div>
         </div>
-        <div class="col-1 form-group">
-            <label asp-for="id"></label>
-            <input readonly type="text" asp-for="id" class="form-control" />
-            <span asp-validation-for="id" class="alert-danger"></span>
-        </div>
-        <div class="col-7 form-group">
-            <label asp-for="razaosocial"></label>
-            <input type="text" asp-for="razaosocial" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="razaosocial" class="alert-danger"></span>
-        </div>
-        <div class="col-4 form-group">
-            <label asp-for="cnpj"></label>
-            <input id="cnpj" type="text" asp-for="cnpj" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="cnpj" class="alert-danger"></span>
-        </div>
-    </div>
 
-    <!-- Sobre a Empresa -->
-    <div class="row">
-        <div class="col-12">
-            <h2>Sobre a Empresa</h2>
-        </div>
+        <!-- Botão de Salvar -->
         <div class="col-12 form-group">
-            <label asp-for="telefone"></label>
-            <input id="telefone" type="text" asp-for="telefone" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="telefone" class="alert-danger"></span>
+            <input type="submit" value="Salvar" class="btn btn-primary" style="background-color: #021532; border-color: #021532;" />
         </div>
-        <div class="col-12 form-group">
-            <label asp-for="celular"></label>
-            <input id="celular" type="text" asp-for="celular" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="celular" class="alert-danger"></span>
+        <div class="col-12 form-group" style="margin-top: 50px;">
+            <span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
         </div>
-
-        <div class="col-12 form-group">
-            <label asp-for="email"></label>
-            <input type="email" asp-for="email" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="email" class="alert-danger"></span>
-        </div>
-    </div>
-
-    <!-- Endereço -->
-    <div class="row">
-        <div class="col-12">
-            <h2>Endereço</h2>
-        </div>
-        <div class="col-2 form-group">
-            <label asp-for="cep"></label>
-            <input id="cep" type="text" asp-for="cep" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="cep" class="alert-danger"></span>
-        </div>
-
-        <div class="col-10">
-            <label asp-for="logradouro"></label>
-            <input type="text" asp-for="logradouro" class="form-control" style="background-color: #f2f2f2;" readonly />
-            <span asp-validation-for="logradouro" class="alert-danger"></span>
-        </div>
-
-
-        <div class="col-2 form-group">
-            <label asp-for="numero"></label>
-            <input type="number" asp-for="numero" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="numero" class="alert-danger"></span>
-        </div>
-
-        <div class="col-5">
-            <label asp-for="bairro"></label>
-            <input type="text" asp-for="bairro" class="form-control" style="background-color: #f2f2f2;" readonly />
-            <span asp-validation-for="bairro" class="alert-danger"></span> 
-        </div>
-
-        <div class="col-4">
-            <label asp-for="cidade"></label>
-            <input type="text" asp-for="cidade" class="form-control" style="background-color: #f2f2f2;" readonly />
-            <span asp-validation-for="cidade" class="alert-danger"></span>
-        </div>
-
-        <div class="col-1">
-            <label asp-for="estado"></label>
-            <input type="text" asp-for="estado" class="form-control" style="background-color: #f2f2f2;" readonly />
-            <span asp-validation-for="estado" class="alert-danger"></span>
-        </div>
-
-        <div class="col-12 form-group">
-            <label asp-for="complemento"></label>
-            <input type="text" asp-for="complemento" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="complemento" class="alert-danger"></span>
-        </div>
-       
-    </div>
-
-    <!-- Botão de Salvar -->
-    <div class="col-12 form-group">
-        <input type="submit" value="Salvar" class="btn btn-primary" style="background-color: #021532;" />
-    </div>
-    <div class="col-12 form-group" style="margin-top:50px">
-        <span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
-    </div>
-
-</form>
+    </form>
+</div>
 
 @section Scripts {
     <script>
@@ -129,11 +117,7 @@
             $('#telefone').mask('(00) 0000-0000');
             $('#celular').mask('(00) 00000-0000');
             $('#cep').mask('00000-000').on('blur', function () {
-                console.log('Evento blur acionado.'); // Adiciona uma mensagem ao console para verificar se o evento blur está sendo acionado corretamente.
-
-                var cep = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-                console.log('CEP:', cep); // Adiciona o valor do CEP ao console para verificar se está sendo obtido corretamente.
-
+                var cep = $(this).val().replace(/\D/g, '');
                 if (cep.length != 8) {
                     return;
                 }
@@ -145,11 +129,10 @@
                         $('#cidade').val(data.localidade);
                         $('#estado').val(data.uf);
 
-                        // Lista de cidades com apenas um CEP (exemplo fictício)
+                        // Permitir ou bloquear a edição com base na cidade
                         var cidadesUnicas = ['Pirapozinho']; // Substitua com a lista real
                         var cidadeUnica = cidadesUnicas.includes(data.localidade);
 
-                        // Permite ou bloqueia a edição dos campos com base na cidade
                         if (cidadeUnica) {
                             $('#logradouro').prop('readonly', false);
                             $('#bairro').prop('readonly', false);
@@ -165,4 +148,3 @@
         });
     </script>
 }
-

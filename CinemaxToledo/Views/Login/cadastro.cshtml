@@ -1,43 +1,56 @@
 ﻿@model CompusoftAtendimento.Models.LoginModel
 @{
-    ViewData["Title"] = "cadastro";
+    ViewData["Title"] = "Cadastro de Usuários";
 }
 
-<h1>Usuários</h1>
-<form asp-controller="Login" asp-action="salvar" method="post">
-    <div class="row">
-        <div class="col-1 form-group">
-            <label asp-for="id"></label>
-            <input readonly type="text" asp-for="id" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="id" class="alert-danger"></span>
+<div class="container mt-5">
+    <h1 class="text-dark font-weight-bold">Cadastro de Usuários</h1>
+    <form asp-controller="Login" asp-action="salvar" method="post">
+        <div class="row mb-4">
+            <div class="col-md-1 form-group">
+                <label asp-for="id" class="font-weight-bold"></label>
+                <input readonly type="text" asp-for="id" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="id" class="alert-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="login" class="font-weight-bold"></label>
+                <input type="text" asp-for="login" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="login" class="alert-danger"></span>
+            </div>
+            <div class="col-md-5 form-group">
+                <label asp-for="senha" class="font-weight-bold"></label>
+                <input type="password" asp-for="senha" class="form-control" style="background-color: #f2f2f2;" />
+                <span asp-validation-for="senha" class="alert-danger"></span>
+            </div>
         </div>
-        <div class="col-6 form-group">
-            <label asp-for="login"></label>
-            <input type="text" asp-for="login" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="login" class="alert-danger"></span>
+
+        <div class="row mb-4">
+            <div class="col-12 form-group">
+                <label asp-for="idCargo" class="font-weight-bold"></label>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idCargo" asp-items="@ViewBag.listacargos">
+                    <option>Selecione um Cargo...</option>
+                </select>
+            </div>
         </div>
-        <div class="col-5 form-group">
-            <label asp-for="senha"></label>
-            <input type="password" asp-for="senha" class="form-control" style="background-color: #f2f2f2;" />
-            <span asp-validation-for="senha" class="alert-danger"></span>
+
+        <div class="row mb-4">
+            <div class="col-12 form-group">
+                <input type="checkbox" asp-for="ativo" />
+                <label asp-for="ativo" class="font-weight-bold"></label>
+                <span asp-validation-for="ativo" class="alert-danger"></span>
+            </div>
         </div>
-        <div class="col-12 form-group">
-            <label asp-for="idCargo"></label>
-            <select class="form-control" style="background-color: #f2f2f2;" asp-for="idCargo" asp-items="@ViewBag.listacargos">
-                <option>Selecione um Cargo.....</option>
-            </select>
+
+        <div class="row mb-4">
+            <div class="col-12 form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" style="background-color: #021532; border-color: #021532;" />
+            </div>
         </div>
-        <div class="col-12 form-group">       
-            <input type="checkbox" asp-for="ativo" />
-            <label asp-for="ativo"></label>
-            <span asp-validation-for="ativo" class="alert-danger"></span>
-        </div>  
-        <br>
-        <div class="col-12 form-group">
-            <input type="submit" value="Salvar" class="btn btn-primary" style="background-color: #021532;" />
+
+        <div class="row mb-4">
+            <div class="col-12 form-group">
+                <span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
+            </div>
         </div>
-        <div class="col-12 form-group" style="margin-top:50px">
-            <span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
