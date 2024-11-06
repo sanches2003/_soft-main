@@ -27,16 +27,15 @@
                 <span asp-validation-for="senha" class="alert-danger"></span>
             </div>
         </div>
-
         <div class="row mb-4">
             <div class="col-12 form-group">
                 <label asp-for="idCargo" class="font-weight-bold"></label>
-                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idCargo" asp-items="@ViewBag.listacargos">
-                    <option>Selecione um Cargo...</option>
+                <select class="form-control" style="background-color: #f2f2f2;" asp-for="idCargo" asp-items="@ViewBag.listacargos" required>
+                    <option value="">Selecione um Cargo...</option>
                 </select>
+                <span asp-validation-for="idCargo" class="alert-danger"></span>
             </div>
         </div>
-
         <div class="row mb-4">
             <div class="col-12 form-group">
                 <input type="checkbox" asp-for="ativo" />

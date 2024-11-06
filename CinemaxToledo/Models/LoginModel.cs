@@ -30,7 +30,8 @@ namespace CompusoftAtendimento.Models
         [Display(Name = "Usuário Administrador")]
         public bool ativo { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatório")]
+
+        [Required(ErrorMessage = "Campo Obrigatório! Selecione um cargo!")]
         [Display(Name = "Cargo")]
         public int idCargo { get; set; }
 

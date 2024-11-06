@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Index";
     var id = @Context.Session.GetInt32("idLogin");
-
     var adm = @Context.Session.GetInt32("ativoTrue");
 }
 <style>
@@ -317,7 +316,5 @@
     </div>
 
 </div>
-
-
 
 @Html.Partial("cadastroparcial", (AtendimentoModel)ViewBag.cadastro)

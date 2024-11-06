@@ -95,7 +95,7 @@ namespace CompusoftAtendimento.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.mensagem = "Ops... Não foi possível excluir!" + ex.Message;
+                ViewBag.mensagem = "Ops... Não foi possível excluir pois existem usuários já atrelados a este registro! Erro: ";// + ex.Message
                 ViewBag.classe = "alert-danger";
             }
             return View("listar", model.listar());

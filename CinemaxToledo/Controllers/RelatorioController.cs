@@ -6,22 +6,28 @@ using Repositorio.Entidades;
 namespace CompusoftAtendimento.Controllers
 {
         public class RelatorioController : Controller
-    {
+        {
             public IActionResult menu()
             {
                 return View(); //passando a lista por parametro para a view
             }
             public IActionResult agentes()
             {
-                return View(); //passando a lista por parametro para a view
+            RelatorioAgenteModel catModel = new RelatorioAgenteModel();
+            List<ViewTotalChamadosPorUsuario> lista = catModel.listar();
+            return View(lista); //passando a lista por parametro para a view
             }
             public IActionResult categoriadoproblema()
             {
-                return View(); //passando a lista por parametro para a view
+            RelatorioCategoriaModel catModel = new RelatorioCategoriaModel();
+            List<ViewTotalChamadosPorCategoria> lista = catModel.listar();
+            return View(lista); //passando a lista por parametro para a view
             }
             public IActionResult plataformas()
             {
-                return View(); //passando a lista por parametro para a view
+            RelatorioPlataformaModel catModel = new RelatorioPlataformaModel();
+            List<ViewTotalChamadosPorPlataforma> lista = catModel.listar();
+            return View(lista); //passando a lista por parametro para a view
             }
 
             public IActionResult empresas()
@@ -32,9 +38,11 @@ namespace CompusoftAtendimento.Controllers
 
             }
 
-        public IActionResult formasdeatendimento()
-            {
-                return View(); //passando a lista por parametro para a view
+            public IActionResult formasdeatendimento()
+                {
+                RelatorioFormaModel catModel = new RelatorioFormaModel();
+                List<ViewTotalChamadosPorForma> lista = catModel.listar();
+                return View(lista); //passando a lista por parametro para a view
             }
-    }
+        }
 }

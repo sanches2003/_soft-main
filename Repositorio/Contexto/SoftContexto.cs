@@ -38,6 +38,13 @@ namespace Repositorio.Contexto
         //relatorio empresas total chamados
         public DbSet<ViewTotalChamados> viewtotalchamados { get; set; }
 
+        public DbSet<ViewTotalChamadosPorUsuario> viewtotalchamadosporusuario { get; set; }
+
+        public DbSet<ViewTotalChamadosPorPlataforma> viewtotalchamadosporplataforma { get; set; }
+
+        public DbSet<ViewTotalChamadosPorCategoria> viewtotalchamadosporcategoria{ get; set; }
+
+        public DbSet<ViewTotalChamadosPorForma> viewtotalchamadosporforma { get; set; }
 
         //Não sei o que é isso:
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -70,6 +77,33 @@ namespace Repositorio.Contexto
             {
                 entidade.HasNoKey();
                 entidade.ToView("view_total_chamados_por_empresa");
+            });
+
+            //view total chamados usuario
+            modelBuilder.Entity<ViewTotalChamadosPorUsuario>(entidade =>
+            {
+                entidade.HasNoKey();
+                entidade.ToView("TotalChamadosPorUsuario"); //nome da view do banco
+            });
+
+            //view total chamados plataforma
+            modelBuilder.Entity<ViewTotalChamadosPorPlataforma>(entidade =>
+            {
+                entidade.HasNoKey();
+                entidade.ToView("TotalChamadosPorPlataforma"); //nome da view do banco
+            });
+
+            //view total chamados categoria
+            modelBuilder.Entity<ViewTotalChamadosPorCategoria>(entidade =>
+            {
+                entidade.HasNoKey();
+                entidade.ToView("TotalChamadosPorCategoriaProblema"); //nome da view do banco
+            });
+
+            modelBuilder.Entity<ViewTotalChamadosPorForma>(entidade =>
+            {
+                entidade.HasNoKey();
+                entidade.ToView("TotalChamadosPorFormaAtendimento"); //nome da view do banco
             });
 
             modelBuilder.Entity<Atendimento>(entidade =>

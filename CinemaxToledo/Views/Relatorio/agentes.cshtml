@@ -1,8 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Repositorio.Entidades.ViewTotalChamadosPorUsuario>
 @{
-    ViewData["Title"] = "Relatório de Atendimentos por Agente";
+    ViewData["Title"] = "Relatorio Total Chamados por Agentes";
 }
 
 <!DOCTYPE html>
@@ -54,30 +52,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>João Silva</td>
-                    <td>
-                        <div style="width: 80%;"><div class="bar" style="width: 80%;">80</div></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Maria Oliveira</td>
-                    <td>
-                        <div style="width: 65%;"><div class="bar" style="width: 65%;">65</div></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Carlos Pereira</td>
-                    <td>
-                        <div style="width: 90%;"><div class="bar" style="width: 90%;">90</div></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ana Souza</td>
-                    <td>
-                        <div style="width: 50%;"><div class="bar" style="width: 50%;">50</div></div>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.login</td>
+                        <td>@item.TotalChamados</td>
+                    </tr>
+                }
             </tbody>
         </table>
 
@@ -86,15 +67,26 @@
     </div>
 
     <script>
-        // Configuração do gráfico de barras
+        // Coleta de dados do Razor para o gráfico
+        const agentes = [];
+        const atendimentos = [];
+        @foreach (var item in Model)
+        {
+            <text>
+                agentes.push('@item.login');
+                atendimentos.push(@item.TotalChamados);
+            </text>
+        }
+
+        // Configuração do gráfico de barras com dados dinâmicos
         const ctx = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['João Silva', 'Maria Oliveira', 'Carlos Pereira', 'Ana Souza'],
+                labels: agentes,
                 datasets: [{
                     label: 'Atendimentos',
-                    data: [80, 65, 90, 50],
+                    data: atendimentos,
                     backgroundColor: '#2c3e50',
                 }]
             },

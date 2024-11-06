@@ -27,6 +27,7 @@ namespace CompusoftAtendimento.Controllers
             return View(new LoginModel());
         }
 
+
         public IActionResult cadastrese()
         {
             List<CargoModel> lista = (new CargoModel()).listar();
@@ -168,7 +169,7 @@ namespace CompusoftAtendimento.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.mensagem = "Ops... Não foi possível excluir! " + ex.Message;
+                ViewBag.mensagem = "Ops... Não foi possível excluir pois existem atendimentos já atrelados a este registro!";//+ ex.Message
                 ViewBag.classe = "alert-danger";
             }
 

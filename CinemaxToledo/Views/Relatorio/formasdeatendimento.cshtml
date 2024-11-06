@@ -1,8 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Repositorio.Entidades.ViewTotalChamadosPorForma>
 @{
-    ViewData["Title"] = "Relatório de Formas de Atendimento";
+    ViewData["Title"] = "Relatorio Total Chamados por Forma de Atendimento";
 }
 
 <!DOCTYPE html>
@@ -59,30 +57,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Presencial</td>
-                    <td>
-                        <div style="width: 70%;"><div class="bar" style="width: 70%;">70</div></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Online</td>
-                    <td>
-                        <div style="width: 85%;"><div class="bar" style="width: 85%;">85</div></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Telefone</td>
-                    <td>
-                        <div style="width: 50%;"><div class="bar" style="width: 50%;">50</div></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Chat</td>
-                    <td>
-                        <div style="width: 65%;"><div class="bar" style="width: 65%;">65</div></div>
-                    </td>
-                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FormaAtendimento</td>
+                        <td>@item.TotalChamados</td>
+                    </tr>
+                }
             </tbody>
         </table>
 
@@ -91,15 +72,26 @@
     </div>
 
     <script>
-        // Configuração do gráfico de barras
-        const ctx = document.getElementById('barChart').getContext('2d');
+        // Coleta de dados do Razor para o gráfico
+        const formasAtendimento = [];
+        const totalChamados = [];
+        @foreach (var item in Model)
+        {
+            <text>
+                    formasAtendimento.push('@item.FormaAtendimento');
+                    totalChamados.push(@item.TotalChamados);
+            </text>
+        }
+
+                // Configuração do gráfico de barras com dados dinâmicos
+                const ctx = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Presencial', 'Online', 'Telefone', 'Chat'],
+                labels: formasAtendimento,
                 datasets: [{
                     label: 'Atendimentos',
-                    data: [70, 85, 50, 65],
+                    data: totalChamados,
                     backgroundColor: '#2c3e50',
                 }]
             },

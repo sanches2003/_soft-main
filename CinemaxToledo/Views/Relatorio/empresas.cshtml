@@ -53,13 +53,10 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-
                 {
                     <tr>
                         <td>@item.razaosocial</td>
-                        <td>
-                            @item.TotalChamados
-                        </td>
+                        <td>@item.TotalChamados</td>
                     </tr>
                 }
             </tbody>
@@ -70,15 +67,26 @@
     </div>
 
     <script>
-        // Configuração do gráfico de barras
+        // Coleta de dados do Razor para o gráfico
+        const empresas = [];
+        const atendimentos = [];
+        @foreach (var item in Model)
+        {
+            <text>
+                empresas.push('@item.razaosocial');
+                atendimentos.push(@item.TotalChamados);
+            </text>
+        }
+
+        // Configuração do gráfico de barras com dados dinâmicos
         const ctx = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Empresa Alpha', 'Empresa Beta', 'Empresa Gamma', 'Empresa Delta'],
+                labels: empresas,
                 datasets: [{
                     label: 'Atendimentos',
-                    data: [75, 60, 90, 50],
+                    data: atendimentos,
                     backgroundColor: '#2c3e50',
                 }]
             },
