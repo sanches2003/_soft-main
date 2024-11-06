@@ -16,7 +16,6 @@ namespace CompusoftAtendimento.Models
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30, ErrorMessage = "Descrição deve ter no máximo 30 caracteres!")]
         [MinLength(3, ErrorMessage = "Descrição deve ter no mínimo 3 caracteres!")]
-
         [Display(Name = "Descrição")]
         public String descricao { get; set; }
         

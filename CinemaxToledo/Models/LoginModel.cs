@@ -10,18 +10,27 @@ namespace CompusoftAtendimento.Models
 {
     public class LoginModel
     {
+        [Required(ErrorMessage = "Campo obrigatório")]
         [Display(Name = "Código")]
         public int id { get; set; }
 
+        [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(30, ErrorMessage = "Usuário deve ter no máximo 30 caracteres!")]
+        [MinLength(3, ErrorMessage = "Usuário deve ter no mínimo 3 caracteres!")]
         [Display(Name = "Usuário")]
         public String login { get; set; }
 
+        [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(5, ErrorMessage = "Senha deve ter no máximo 5 caracteres!")]
+        [MinLength(3, ErrorMessage = "Senha deve ter no mínimo 3 caracteres!")]
         [Display(Name = "Senha")]
         public String senha { get; set; }
 
+        [Required(ErrorMessage = "Campo obrigatório")]
         [Display(Name = "Usuário Administrador")]
         public bool ativo { get; set; }
 
+        [Required(ErrorMessage = "Campo obrigatório")]
         [Display(Name = "Cargo")]
         public int idCargo { get; set; }
 

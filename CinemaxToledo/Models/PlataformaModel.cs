@@ -18,12 +18,10 @@ namespace CompusoftAtendimento.Models
 
         //Data Nottations:
         [Required(ErrorMessage="Campo obrigatório")]
-        [MaxLength(30, ErrorMessage = "Descrição deve ter no máximo 30 caracteres!")]
-        [MinLength(3, ErrorMessage = "Descrição deve ter no mínimo 3 caracteres!")]
-        [Display(Name ="Descrição")]
-
+        [MaxLength(30, ErrorMessage = "Plataforma deve ter no máximo 30 caracteres!")]
+        [MinLength(3, ErrorMessage = "Plataforma deve ter no mínimo 3 caracteres!")]
+        [Display(Name ="Plataforma")]
         public String descricao  { get; set; }
-        [Display(Name = "Nome da Plataforma")]
 
         public PlataformaModel salvar(PlataformaModel model) 
         {

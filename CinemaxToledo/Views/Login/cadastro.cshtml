@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "Cadastro de Usuários";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
 
 <div class="container mt-5">
     <h1 class="text-dark font-weight-bold">Cadastro de Usuários</h1>
@@ -36,7 +40,7 @@
         <div class="row mb-4">
             <div class="col-12 form-group">
                 <input type="checkbox" asp-for="ativo" />
-                <label asp-for="ativo" class="font-weight-bold"></label>
+                <label asp-for="ativo" class="font-weight-bold">Administrador</label>
                 <span asp-validation-for="ativo" class="alert-danger"></span>
             </div>
         </div>
@@ -54,3 +58,6 @@
         </div>
     </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>

@@ -187,7 +187,7 @@ namespace CompusoftAtendimento.Controllers
             });
 
             AtendimentoModel model = new AtendimentoModel();
-            ViewBag.cadastro =  model.selecionar(id);
+            ViewBag.cadastro = model.selecionar(id);
             AtendimentoModel catModel = new AtendimentoModel();
             List<AtendimentoModel> lista = catModel.listar();
             return View("cadastro", lista); //passando a lista por parametro para a view 

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     var id = @Context.Session.GetInt32("idLogin");
 
-    var adm =@Context.Session.GetInt32("ativoTrue");
+    var adm = @Context.Session.GetInt32("ativoTrue");
 }
 <style>
     .align-left {
@@ -126,83 +126,95 @@
             cursor: pointer; /* Indica que o rótulo é clicável */
         }
 
-        .tab {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            padding: 10px;
-            position: relative;
-            background-color: #f9f9f9;
-            overflow: hidden;
-        }
+    .tab {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        position: relative;
+        background-color: #f9f9f9;
+        overflow: hidden;
+    }
+
         .tab.active {
             border-color: #007bff;
         }
-        .timer-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-        .play-btn, .pause-btn, .close-btn {
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: 18px;
-            border-radius: 50%;
-            padding: 5px;
-            transition: background-color 0.3s ease;
-        }
+
+    .timer-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .play-btn, .pause-btn, .close-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        padding: 5px;
+        transition: background-color 0.3s ease;
+    }
+
         .play-btn:hover, .pause-btn:hover, .close-btn:hover {
             background-color: #e0e0e0;
         }
+
         .play-btn i, .pause-btn i {
             font-size: 18px;
         }
-        .timer {
-            display: flex;
-            align-items: center;
-            font-size: 18px;
-        }
-        .timer-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding-right: 30px; /* Ajusta o padding para garantir espaço para o botão de fechar */
-        }
-        .timer-label {
-            display: flex;
-            align-items: center;
-        }
-        .number {
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 18px;
-        }
-        .timer-display {
-            font-size: 18px;
-        }
-        .close-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #ff5c5c;
-            color: white;
-            border-radius: 50%;
-            padding: 5px;
-            font-size: 16px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            z-index: 1; /* Garante que o botão de fechar fique acima dos outros elementos */
-        }
+
+    .timer {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+    }
+
+    .timer-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding-right: 30px; /* Ajusta o padding para garantir espaço para o botão de fechar */
+    }
+
+    .timer-label {
+        display: flex;
+        align-items: center;
+    }
+
+    .number {
+        font-weight: bold;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .timer-display {
+        font-size: 18px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #ff5c5c;
+        color: white;
+        border-radius: 50%;
+        padding: 5px;
+        font-size: 16px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 1; /* Garante que o botão de fechar fique acima dos outros elementos */
+    }
+
         .close-btn:hover {
             background-color: #ff3b3b;
         }
 
-        .line-divider {
+    .line-divider {
         border-top: 1px solid lightgray; /* Linha divisória cinza clara */
         margin: 20px 0; /* Espaçamento acima e abaixo da linha */
-        }
+    }
 
     .card-container {
         display: flex;
@@ -298,7 +310,7 @@
                                 </div>
                             </div>
                         </a>
-                    }                   
+                    }
                 }
             }
         }
@@ -308,5 +320,4 @@
 
 
 
-    @Html.Partial("cadastroparcial", (AtendimentoModel)ViewBag.cadastro)
-    
+@Html.Partial("cadastroparcial", (AtendimentoModel)ViewBag.cadastro)

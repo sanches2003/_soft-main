@@ -225,19 +225,19 @@
             </div>
             <div class="col-3 form-group">
                 <label asp-for="DataHora"></label>
-                <input id="dataHoraInput" type="datetime" asp-for="DataHora" class="form-control" />
+                <input id="dataHoraInput" type="datetime" asp-for="DataHora" class="form-control" readonly />
                 <span asp-validation-for="DataHora" class="alert-danger"></span>
             </div>
-            <div class="col-6 form-group">
-                <div class="d-flex align-items-center">
-                    <div class="timer-controls">
-                        <button type="button" id="startButton" class="btn btn-success btn-sm">Iniciar</button>
-                        <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
-                    </div>
-                    <label asp-for="HorasTrabalhadas"></label>
-                    <input id="timer" type="datetime" value="00:00:00" asp-for="HorasTrabalhadas" class="form-control ml-2" readonly />
-                    <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
-                </div>
+            <!-- Campo Horas Trabalhadas -->
+            <div class="col-3 form-group d-flex align-items-center">
+                <label asp-for="HorasTrabalhadas" class="col-form-label mr-2">Horas Trabalhadas</label>
+                <input id="timer" asp-for="HorasTrabalhadas" class="form-control" readonly />
+                <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
+            </div>
+            <!-- Botões Iniciar e Pausar alinhados com o campo -->
+            <div class="col-3 form-group d-flex align-items-center mt-2">
+                <button type="button" id="startButton" class="btn btn-success btn-sm mr-2">Iniciar</button>
+                <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
             </div>
         </div>
         <div class="row">
@@ -257,12 +257,14 @@
             </div>
             <div class="col-3 form-group">
                 <label asp-for="Contato"></label>
-                <input type="text" asp-for="Contato" class="form-control" style="background-color: #f2f2f2;" />
+                <input type="text" asp-for="Contato" class="form-control" style="background-color: #f2f2f2;" maxlength="30" />
                 <span asp-validation-for="Contato" class="alert-danger"></span>
             </div>
             <div class="col-3 form-group">
                 <label asp-for="Telefone"></label>
-                <input type="text" asp-for="Telefone" class="form-control" style="background-color: #f2f2f2;" />
+                <input type="text" asp-for="Telefone" class="form-control" style="background-color: #f2f2f2;"
+                       inputmode="numeric" pattern="\d*" maxlength="11"
+                       oninput="this.value = this.value.replace(/\D/g, '')" />
                 <span asp-validation-for="Telefone" class="alert-danger"></span>
             </div>
             <div class="col-3 form-group">
@@ -283,14 +285,14 @@
         <div class="row">
             <div class="col-12 form-group">
                 <label asp-for="Assunto"></label>
-                <input type="text" asp-for="Assunto" class="form-control" style="background-color: #f2f2f2;" />
+                <input type="text" asp-for="Assunto" class="form-control" style="background-color: #f2f2f2;" maxlength="50" />
                 <span asp-validation-for="Assunto" class="alert-danger"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-12 form-group">
                 <label asp-for="Descricao"></label>
-                <input type="text" asp-for="Descricao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" />
+                <input type="text" asp-for="Descricao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" maxlength="50" />
                 <span asp-validation-for="Descricao" class="alert-danger"></span>
             </div>
         </div>
@@ -307,18 +309,22 @@
                 </select>
             </div>
         </div>
-        <div class="col-6 text-right">
+        <div class="mt-2 text-right">
             <button type="submit" value="Salvar" class="btn btn-success">Salvar</button>
         </div>
         <div class="line-divider"></div>
         <div class="row">
             <div class="col-12 form-group">
-                <div class="row mt-2">
-                    <div class="col-12 form-group">
-                        <label asp-for="DescricaoSolucao"></label>
-                        <input type="text" asp-for="DescricaoSolucao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" />
-                        <span asp-validation-for="DescricaoSolucao" class="alert-danger"></span>
-                    </div>
+                <div class="form-group">
+                    <label asp-for="Status">Status</label>
+                    <select asp-for="Status" asp-items="@ViewBag.listastatus" id="status" name="Status" class="form-control">
+                        <option>Selecione o status do atendimento...</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="DescricaoSolucao"></label>
+                    <input type="text" asp-for="DescricaoSolucao" class="form-control" style="background-color: #f2f2f2; border: 2px solid #d3d3d3;" maxlength="50" />
+                    <span asp-validation-for="DescricaoSolucao" class="alert-danger"></span>
                 </div>
                 <div class="center-button">
                     <center>
@@ -329,226 +335,48 @@
         </div>
     </form>
 </div>
-
 <script>
     let timerInterval;
-    let seconds = 0;
+    let startTime = 0;
+    let elapsedTime = 0;
 
-    document.getElementById('startButton').onclick = function () {
-        document.getElementById('startButton').disabled = true;
-        document.getElementById('pauseButton').disabled = false;
+    // Quando a página carregar, verifica se há tempo salvo e inicia o timer a partir dele
+    window.onload = function () {
+        const savedTime = document.getElementById("timer").value;
+        if (savedTime) {
+            const timeParts = savedTime.split(":");
+            elapsedTime = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]); // Convertendo para segundos
+            updateTimerDisplay(elapsedTime);
+        }
+    };
+
+    // Função para formatar o tempo em minutos e segundos
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    // Atualiza o display do timer
+    function updateTimerDisplay(seconds) {
+        document.getElementById("timer").value = formatTime(seconds);
+    }
+
+    // Iniciar o timer
+    document.getElementById("startButton").addEventListener("click", function () {
+        document.getElementById("startButton").disabled = true;
+        document.getElementById("pauseButton").disabled = false;
 
         timerInterval = setInterval(function () {
-            seconds++;
-            const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            const secs = (seconds % 60).toString().padStart(2, '0');
-
-            // Correção: concatenando as strings corretamente
-            document.getElementById('timer').value = hours + ':' + minutes + ':' + secs;
+            elapsedTime++;
+            updateTimerDisplay(elapsedTime);
         }, 1000);
-    };
-
-    document.getElementById('pauseButton').onclick = function () {
-        clearInterval(timerInterval);
-        document.getElementById('startButton').disabled = false;
-        document.getElementById('pauseButton').disabled = true;
-    };
-
-    document.getElementById('pauseButton').onclick = function () {
-        clearInterval(timerInterval);
-        document.getElementById('startButton').disabled = false;
-        document.getElementById('pauseButton').disabled = true;
-    };
-
-    document.addEventListener('DOMContentLoaded', function () {
-        function formatDate(date) {
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
-            const year = date.getFullYear();
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            const seconds = String(date.getSeconds()).padStart(2, '0');
-            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        }
-
-        const dataHoraInput = document.getElementById('dataHoraInput');
-        const now = new Date();
-        dataHoraInput.value = formatDate(now);
     });
 
-    let tabCount = 0;
-    const maxTabs = 10; // Limite máximo de abas
-    let usedNumbers = new Set(); // Conjunto para rastrear números utilizados
-    let availableNumbers = Array.from({ length: maxTabs }, (_, i) => i + 1); // Números disponíveis de 1 a 10
-    let tabData = {}; // Objeto para armazenar os dados de cada aba
-    let currentTabId = null; // Armazena o ID da aba ativa
-
-    document.getElementById('newAttButton').addEventListener('click', function (e) {
-        e.preventDefault();
-
-        // Verifica se o número máximo de abas foi alcançado
-        if (tabCount >= maxTabs) {
-            alert('Número máximo de atendimentos alcançado.');
-            return;
-        }
-
-        // Seleciona um número disponível
-        const number = availableNumbers.shift(); // Remove o primeiro número da lista de disponíveis
-        if (number === undefined) {
-            alert('Todos os números de atendimento já foram utilizados.');
-            return;
-        }
-
-        // Marca o número como utilizado
-        usedNumbers.add(number);
-
-        // Cria uma nova aba
-        tabCount++;
-        const tab = document.createElement('div');
-        tab.className = 'tab';
-        tab.dataset.id = number; // Adiciona um ID para identificar a aba
-
-        // Cria o contêiner do timer e botões de controle
-        const timerContainer = document.createElement('div');
-        timerContainer.className = 'timer-controls';
-
-        const timerLabel = document.createElement('div');
-        timerLabel.className = 'timer-container';
-
-        const numberLabel = document.createElement('span');
-        numberLabel.className = 'number';
-        numberLabel.textContent = `ID: ${number}`;
-
-        const timerDisplay = document.createElement('span');
-        timerDisplay.className = 'timer-display';
-        timerDisplay.textContent = '00:00:00';
-
-        timerLabel.appendChild(numberLabel);
-        timerLabel.appendChild(timerDisplay);
-
-        const playButton = document.createElement('button');
-        playButton.className = 'play-btn';
-        playButton.innerHTML = '<i class="fas fa-play"></i>'; // Ícone de Play
-
-        const pauseButton = document.createElement('button');
-        pauseButton.className = 'pause-btn';
-        pauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // Ícone de Pause
-
-        // Adiciona o timer e os botões ao contêiner
-        timerContainer.appendChild(timerLabel);
-        timerContainer.appendChild(playButton);
-        timerContainer.appendChild(pauseButton);
-
-        tab.appendChild(timerContainer);
-
-        // Adiciona o botão de exclusão à aba
-        const closeButton = document.createElement('button');
-        closeButton.className = 'close-btn';
-        closeButton.innerHTML = '<i class="fas fa-times"></i>'; // Ícone de Fechar
-        tab.appendChild(closeButton);
-
-        // Adiciona a nova aba ao contêiner
-        document.getElementById('tabContainer').appendChild(tab);
-
-        // Adiciona um evento de clique para a aba
-        tab.addEventListener('click', function () {
-            // Remove a classe 'active' de todas as abas
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-
-            // Adiciona a classe 'active' à aba clicada
-            this.classList.add('active');
-            currentTabId = number;
-            loadTabData(number); // Carrega os dados da aba atual
-        });
-
-        // Configura o timer
-        let timerInterval;
-        let seconds = 0;
-        let isRunning = false;
-
-        // Função para atualizar o timer
-        const updateTimer = () => {
-            seconds++;
-            const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
-            const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
-            const secs = String(seconds % 60).padStart(2, '0');
-            timerDisplay.textContent = `${hrs}:${mins}:${secs}`;
-        };
-
-        playButton.addEventListener('click', function () {
-            if (isRunning) return;
-            isRunning = true;
-            timerInterval = setInterval(updateTimer, 1000);
-        });
-
-        pauseButton.addEventListener('click', function () {
-            if (!isRunning) return;
-            isRunning = false;
-            clearInterval(timerInterval);
-        });
-
-        // Adiciona um evento de clique para o botão de exclusão
-        closeButton.addEventListener('click', function (event) {
-            event.stopPropagation(); // Evita que o clique no botão de exclusão ative a aba
-            tab.remove(); // Remove a aba
-            tabCount--; // Decrementa o contador de abas
-
-            // Marca o número como disponível novamente
-            const number = parseInt(tab.dataset.id);
-            if (usedNumbers.has(number)) {
-                usedNumbers.delete(number);
-                availableNumbers.push(number); // Adiciona o número de volta à lista de disponíveis
-                availableNumbers.sort((a, b) => a - b); // Ordena a lista de disponíveis para garantir ordem crescente
-            }
-
-            // Pausa o timer se a aba for fechada
-            if (isRunning) {
-                clearInterval(timerInterval);
-            }
-        });
-
-        // Adiciona um evento para garantir que a aba recém-criada seja ativada e carregue os dados
-        tab.click();
-    });
-
-    // Função para salvar os dados da aba atual
-    function saveTabData(tabId) {
-        if (currentTabId === null) return;
-
-        const form = document.querySelector('.content-container');
-        const formData = new FormData(form);
-
-        tabData[tabId] = {};
-        formData.forEach((value, key) => {
-            tabData[tabId][key] = value;
-        });
-    }
-
-    // Função para carregar os dados da aba
-    function loadTabData(tabId) {
-        if (!tabData[tabId]) return;
-
-        const form = document.querySelector('.content-container');
-        const elements = form.querySelectorAll('input, select');
-
-        elements.forEach(el => {
-            if (el.name in tabData[tabId]) {
-                if (el.type === 'file') {
-                    // Para campos de arquivo, você precisará de uma solução alternativa para carregar o arquivo
-                    // Como os arquivos não podem ser armazenados diretamente, você pode exibir uma mensagem ou limpar o campo
-                    el.value = ''; // Limpa o campo de arquivo
-                } else {
-                    el.value = tabData[tabId][el.name];
-                }
-            }
-        });
-    }
-
-    // Atualiza os dados ao mudar de aba
-    document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('tab')) {
-            saveTabData(currentTabId); // Salva os dados da aba atual
-        }
+    // Pausar o timer
+    document.getElementById("pauseButton").addEventListener("click", function () {
+        clearInterval(timerInterval);
+        document.getElementById("startButton").disabled = false;
+        document.getElementById("pauseButton").disabled = true;
     });
 </script>
