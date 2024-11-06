@@ -1,6 +1,7 @@
 ﻿using CompusoftAtendimento.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Repositorio.Entidades;
 
 namespace CompusoftAtendimento.Controllers
 {
@@ -22,11 +23,16 @@ namespace CompusoftAtendimento.Controllers
             {
                 return View(); //passando a lista por parametro para a view
             }
+
             public IActionResult empresas()
             {
-                return View(); //passando a lista por parametro para a view
+            RelatorioModel catModel = new RelatorioModel();
+            List<ViewTotalChamados> lista = catModel.listar();
+            return View(lista); //passando a lista por parametro para a view
+
             }
-            public IActionResult formasdeatendimento()
+
+        public IActionResult formasdeatendimento()
             {
                 return View(); //passando a lista por parametro para a view
             }

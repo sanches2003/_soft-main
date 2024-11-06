@@ -25,13 +25,13 @@ namespace CompusoftAtendimento.Models
         public string cnpj { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
-        [StringLength(13, MinimumLength = 13, ErrorMessage = "O Telefone deve ter 11 dígitos.")]
-        [MinLength(3, ErrorMessage = "Telefone deve ter no mínimo 3 caracteres!")]
+        //[StringLength(15, MinimumLength = 15, ErrorMessage = "O Telefone deve ter 11 dígitos.")]
+        //[MinLength(3, ErrorMessage = "Telefone deve ter no mínimo 3 caracteres!")]
         [Display(Name = "Telefone")]
         public String telefone { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório")]
-        [StringLength(13, MinimumLength = 13, ErrorMessage = "O Celular deve ter 11 dígitos.")]
+        [StringLength(15, MinimumLength = 15, ErrorMessage = "O Celular deve ter 11 dígitos.")]
         [MinLength(3, ErrorMessage = "Celular deve ter no mínimo 3 caracteres!")]
         [Display(Name = "Celular")]
         public String celular { get; set; }

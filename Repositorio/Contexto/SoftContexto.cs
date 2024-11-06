@@ -35,6 +35,10 @@ namespace Repositorio.Contexto
         public DbSet<Status> status { get; set; }
 
 
+        //relatorio empresas total chamados
+        public DbSet<ViewTotalChamados> viewtotalchamados { get; set; }
+
+
         //Não sei o que é isso:
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
@@ -60,6 +64,14 @@ namespace Repositorio.Contexto
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //view total chamados empresa
+            modelBuilder.Entity<ViewTotalChamados>(entidade =>
+            {
+                entidade.HasNoKey();
+                entidade.ToView("view_total_chamados_por_empresa");
+            });
+
             modelBuilder.Entity<Atendimento>(entidade =>
             {
                 entidade.HasKey(e => e.id);// definindo: chave primaria
