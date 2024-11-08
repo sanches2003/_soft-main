@@ -212,7 +212,7 @@
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<h1>Exibindo Atendimento</h1>
 <div id="tabContainer" class="tab-container"></div>
 <div id="contentContainer" class="content-container">
     <form asp-controller="Atendimento" asp-action="salvaralterar" method="post">
@@ -225,17 +225,19 @@
             </div>
             <div class="col-3 form-group">
                 <label asp-for="DataHora"></label>
-                <input id="dataHoraInput" type="datetime" asp-for="DataHora" class="form-control" readonly />
+                <input id="dataHoraInput" type="text" asp-for="DataHora" class="form-control" readonly />
                 <span asp-validation-for="DataHora" class="alert-danger"></span>
             </div>
+
             <!-- Campo Horas Trabalhadas -->
-            <div class="col-3 form-group d-flex align-items-center">
-                <label asp-for="HorasTrabalhadas" class="col-form-label mr-2">Horas Trabalhadas</label>
+            <div class="col-3 form-group">
+                <label asp-for="HorasTrabalhadas" class="col-form-label"></label>
                 <input id="timer" asp-for="HorasTrabalhadas" class="form-control" readonly />
                 <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
             </div>
+
             <!-- Botões Iniciar e Pausar alinhados com o campo -->
-            <div class="col-3 form-group d-flex align-items-center mt-2">
+            <div class="col-3 form-group d-flex align-items-center mt-4">
                 <button type="button" id="startButton" class="btn btn-success btn-sm mr-2">Iniciar</button>
                 <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
             </div>
@@ -379,4 +381,5 @@
         document.getElementById("startButton").disabled = false;
         document.getElementById("pauseButton").disabled = true;
     });
+
 </script>

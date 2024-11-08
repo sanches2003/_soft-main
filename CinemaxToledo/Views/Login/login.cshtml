@@ -58,10 +58,10 @@
         </a>
     </nav>
 
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container d-flex align-items-center justify-content-center min-vh-100" style="margin-top: 80px;">
         <div class="card p-4" style="width: 40rem;">
             <form asp-controller="Login" asp-action="logar" method="post">
-                <h4 class="text-center mb-4">Entre com o seu Login</h4>
+                <h4 class="text-center mb-4">Realize o Login</h4>
                 <div class="form-group">
                     <label class="font-weight-bold" for="exampleDropdownFormEmail2">
                         <img src="~/icons/do-utilizador.png" width="24" height="24" alt="Ícone de usuário"> Usuário
@@ -75,9 +75,9 @@
                     <input style="background-color: #f2f2f2;" name="txtsenha" type="password" class="form-control" id="exampleInputPassword2" required>
                 </div>
                 <div>
-                    <span class="alert @ViewBag.classe">@ViewBag.mensagem</span>
+                    <center><span class="alert mt-3 @ViewBag.classe">@ViewBag.mensagem</span></center>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Entrar</button>
                 <a href="~/Login/Cadastrese" class="btn btn-secondary btn-block">Cadastre-se</a>
             </form>
         </div>

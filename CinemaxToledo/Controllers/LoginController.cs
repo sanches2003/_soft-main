@@ -118,8 +118,9 @@ namespace CompusoftAtendimento.Controllers
             if (model == null)
             {
                 
-                ViewBag.mensagem = "Dados inválidos";
-                
+                ViewBag.mensagem = "Dados de login incorretos!";
+                ViewBag.classe = "alert-danger";
+
                 return View("login");
             }
             else if (model.ativo==true)

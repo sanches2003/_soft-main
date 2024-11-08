@@ -17,7 +17,7 @@
             <li class="nav-item text-nowrap">
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <a class="text-white">Bem vindo(a) @Context.Session.GetString("nomeLogin")!</a>
+                        <a class="text-white"></a>
                     </div>
                     <div class="col-auto">
                         <a class="nav-link" asp-controller="login" asp-action="sair">
@@ -37,7 +37,7 @@
             <!-- Definindo a largura máxima do cartão -->
             <div class="row">
                 <div class="col-12 form-group">
-                    <label asp-for="id" class="font-weight-bold">ID</label>
+                    <label asp-for="id" class="font-weight-bold">Código</label>
                     <input readonly type="text" asp-for="id" class="form-control" />
                     <span asp-validation-for="id" class="alert-danger"></span>
                 </div>

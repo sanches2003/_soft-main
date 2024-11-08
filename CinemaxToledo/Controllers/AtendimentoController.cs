@@ -262,7 +262,7 @@ namespace CompusoftAtendimento.Controllers
                 ViewBag.mensagem = "Ops... Não foi possível excluir pois existem dados já atrelados a este registro!"; // + ex.Message
                 ViewBag.classe = "alert-danger";
             }
-            return View("cadastro", model.listar());
+            return RedirectToAction("cadastro");
         }
     }
 }

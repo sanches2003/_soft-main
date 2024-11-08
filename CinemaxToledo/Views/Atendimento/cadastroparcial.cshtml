@@ -227,25 +227,27 @@
                 <input readonly type="text" asp-for="id" class="form-control" />
                 <span asp-validation-for="id" class="alert-danger"></span>
             </div>
+
             <div class="col-3 form-group">
                 <label asp-for="DataHora"></label>
-                <input id="dataHoraInput" type="datetime" asp-for="DataHora" class="form-control" readonly />
+                <input id="dataHoraInput" type="datetime-local" asp-for="DataHora" class="form-control" readonly />
                 <span asp-validation-for="DataHora" class="alert-danger"></span>
             </div>
 
             <!-- Campo Horas Trabalhadas -->
-            <div class="col-3 form-group d-flex align-items-center">
-                <label asp-for="HorasTrabalhadas" class="col-form-label mr-2">Horas Trabalhadas</label>
+            <div class="col-3 form-group">
+                <label asp-for="HorasTrabalhadas" class="col-form-label"></label>
                 <input id="timer" asp-for="HorasTrabalhadas" class="form-control" readonly />
                 <span asp-validation-for="HorasTrabalhadas" class="alert-danger"></span>
             </div>
 
             <!-- Botões Iniciar e Pausar alinhados com o campo -->
-            <div class="col-3 form-group d-flex align-items-center mt-2">
+            <div class="col-3 form-group d-flex align-items-center mt-4">
                 <button type="button" id="startButton" class="btn btn-success btn-sm mr-2">Iniciar</button>
                 <button type="button" id="pauseButton" class="btn btn-warning btn-sm" disabled>Pausar</button>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12 form-group">
                 <label asp-for="idFormaAtendimento"></label>
@@ -342,6 +344,7 @@
 </div>
 
 <script>
+
     let timerInterval;
     let startTime = 0;
     let elapsedTime = 0;
@@ -385,4 +388,23 @@
         document.getElementById("startButton").disabled = false;
         document.getElementById("pauseButton").disabled = true;
     });
+
+    const dataHoraInput = document.getElementById("dataHoraInput");
+    if (!dataHoraInput.value) {
+        // Define o horário atual em UTC e ajusta para o horário de Brasília
+        const now = new Date();
+        const brasiliaTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000) - (3 * 3600000));
+
+        // Formata a data e hora no padrão compatível com datetime-local
+        const formattedDateTime = brasiliaTime.toISOString().slice(0, 16); // Formato "yyyy-MM-ddThh:mm"
+        dataHoraInput.value = formattedDateTime;
+    }
+
+    // Resto do código do timer, caso necessário
+    const savedTime = document.getElementById("timer")?.value;
+    if (savedTime) {
+        const timeParts = savedTime.split(":");
+        const elapsedTime = parseInt(timeParts[0]) * 60 + parseInt(timeParts[1]);
+        updateTimerDisplay(elapsedTime);
+    }
 </script>
