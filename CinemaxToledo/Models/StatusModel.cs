@@ -9,7 +9,7 @@ namespace CompusoftAtendimento.Models
     public enum StatusModel
     {
         Pendente,
-        Concluido,
+        Concluído,
     }
 
 }
